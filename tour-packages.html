@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tour Packages | Uncle Ron's Travel and Tours</title>
+
+    <link rel="stylesheet" href="css/tour-packages-page.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-logo">
+
+            <img src="images/logo.png" alt="Uncle Ron's Travel and Tours">
+
+            <h3>UNCLE RON'S</h3>
+
+            <span>TRAVEL AND TOURS</span>
+
+        </div>
+
+
+        <nav class="sidebar-nav" aria-label="Main navigation">
+
+            <a href="index.html" class="nav-link">
+                <span class="icon"><i data-lucide="layout-dashboard" aria-hidden="true"></i></span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="tour-packages.html" class="nav-link active" aria-current="page">
+                <span class="icon"><i data-lucide="map" aria-hidden="true"></i></span>
+                <span>Tour Packages</span>
+            </a>
+
+            <a href="bookings.html" class="nav-link">
+                <span class="icon"><i data-lucide="calendar-check" aria-hidden="true"></i></span>
+                <span>Bookings</span>
+            </a>
+
+            <a href="customers.html" class="nav-link">
+                <span class="icon"><i data-lucide="users" aria-hidden="true"></i></span>
+                <span>Customers</span>
+            </a>
+
+            <a href="reviews.html" class="nav-link">
+                <span class="icon"><i data-lucide="star" aria-hidden="true"></i></span>
+                <span>Reviews</span>
+            </a>
+
+            <a href="reports.html" class="nav-link">
+                <span class="icon"><i data-lucide="chart-no-axes-column-increasing" aria-hidden="true"></i></span>
+                <span>Reports</span>
+            </a>
+
+            <a href="settings.html" class="nav-link">
+                <span class="icon"><i data-lucide="settings" aria-hidden="true"></i></span>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-footer">
+
+            <div class="admin-mini">
+
+                <div class="admin-avatar">
+                    J
+                </div>
+
+                <div>
+                    <strong>Jonas Reyes</strong>
+                    <small>Staff</small>
+                </div>
+
+            </div>
+
+            <button class="logout-button" type="button" id="logoutButton">
+                <i data-lucide="log-out" aria-hidden="true"></i>
+                <span>Logout</span>
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <button
+                class="mobile-menu"
+                id="mobileMenu"
+                type="button"
+                aria-label="Hide sidebar"
+                aria-controls="sidebar"
+                aria-expanded="true"
+                title="Hide sidebar">
+                <i data-lucide="menu" aria-hidden="true"></i>
+            </button>
+
+            <div class="search-container">
+
+                <i data-lucide="search" aria-hidden="true"></i>
+
+                <input
+                    type="text"
+                    id="globalSearch"
+                    aria-label="Search tour packages"
+                    placeholder="Search tour packages..."
+                >
+
+            </div>
+
+
+            <div class="topbar-right">
+
+                <button
+                    class="notification-button"
+                    id="notificationButton">
+
+                    <i data-lucide="bell" aria-hidden="true"></i>
+
+                    <span>
+                        2
+                    </span>
+
+                </button>
+
+
+                <div class="admin-profile">
+
+                    <div class="admin-avatar">
+                        J
+                    </div>
+
+                    <div class="admin-profile-info">
+
+                        <strong>
+                            Jonas Reyes
+                        </strong>
+
+                        <small>
+                            Staff
+                        </small>
+
+                    </div>
+
+                    <span class="dropdown-arrow" aria-hidden="true">
+                        ▾
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- PAGE -->
+        <section class="dashboard-content">
+
+
+            <!-- PAGE HEADER -->
+            <div class="page-header">
+
+                <div>
+
+                    <span class="page-label">
+                        TOUR MANAGEMENT
+                    </span>
+
+                    <h1>
+                        Tour Packages
+                    </h1>
+
+                    <p>
+                        Create, manage and update your travel packages.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="add-package-btn"
+                    id="openAddModal"
+                    type="button">
+
+                    <i data-lucide="plus" aria-hidden="true"></i>
+                    Add Tour Package
+
+                </button>
+
+            </div>
+
+
+            <!-- FILTERS -->
+            <div class="filter-bar">
+
+                <div class="filter-group">
+
+                    <label for="categoryFilter">
+                        Category
+                    </label>
+
+                    <select id="categoryFilter">
+
+                        <option value="all">
+                            All Packages
+                        </option>
+
+                        <option value="cebu">
+                            Cebu Tours
+                        </option>
+
+                        <option value="bohol">
+                            Cebu-Bohol
+                        </option>
+
+                        <option value="south">
+                            South Cebu
+                        </option>
+
+                        <option value="city">
+                            City Tours
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="filter-group">
+
+                    <label for="statusFilter">
+                        Status
+                    </label>
+
+                    <select id="statusFilter">
+
+                        <option value="all">
+                            All Status
+                        </option>
+
+                        <option value="active">
+                            Active
+                        </option>
+
+                        <option value="inactive">
+                            Inactive
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="package-total">
+
+                    <strong id="packageCount">
+                        6
+                    </strong>
+
+                    <span>
+                        Packages
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- PACKAGE GRID -->
+            <div class="package-grid" id="packageGrid">
+
+
+                <!-- PACKAGE 1 -->
+                <div
+                    class="package-card"
+                    data-category="cebu"
+                    data-status="active"
+                    data-name="3D2N Cebu Tour"
+                >
+
+                    <div class="package-image">
+
+                        <img
+                            src="images/cebu.jpg"
+                            alt="Cebu Tour"
+                        >
+
+                        <span class="status active">
+                            Active
+                        </span>
+
+                        <button
+                            class="image-menu"
+                            type="button"
+                            aria-label="Actions for 3D2N Cebu Tour">
+                            <i data-lucide="ellipsis" aria-hidden="true"></i>
+                        </button>
+
+                        <div class="card-menu">
+
+                            <button class="edit-btn" type="button">
+                                <i data-lucide="pencil" aria-hidden="true"></i>
+                                <span>Edit</span>
+                            </button>
+
+                            <button class="delete-btn" type="button">
+                                <i data-lucide="trash-2" aria-hidden="true"></i>
+                                <span>Delete</span>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="package-body">
+
+                        <div class="package-category">
+                            CEBU TOUR
+                        </div>
+
+                        <h2>
+                            3D2N Cebu Tour
+                        </h2>
+
+                        <p>
+                            Explore the beautiful beaches,
+                            waterfalls and famous attractions
+                            of Cebu.
+                        </p>
+
+
+                        <div class="package-info">
+
+                            <span>
+                                <i data-lucide="clock-3" aria-hidden="true"></i>
+                                3 Days / 2 Nights
+                            </span>
+
+                            <span>
+                                <i data-lucide="users" aria-hidden="true"></i>
+                                Up to 10 pax
+                            </span>
+
+                        </div>
+
+
+                        <div class="package-footer">
+
+                            <div>
+
+                                <small>
+                                    Starting at
+                                </small>
+
+                                <strong>
+                                    ₱5,098
+                                </strong>
+
+                                <small>
+                                    / person
+                                </small>
+
+                            </div>
+
+
+                            <button class="view-btn">
+                                View Details
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PACKAGE 2 -->
+                <div
+                    class="package-card"
+                    data-category="south"
+                    data-status="active"
+                    data-name="Moalboal-Badian Adventure"
+                >
+
+                    <div class="package-image">
+
+                        <img
+                            src="images/moalboal.jpg"
+                            alt="Moalboal"
+                        >
+
+                        <span class="status active">
+                            Active
+                        </span>
+
+                        <button
+                            class="image-menu"
+                            type="button"
+                            aria-label="Actions for Moalboal-Badian Adventure">
+                            <i data-lucide="ellipsis" aria-hidden="true"></i>
+                        </button>
+
+                        <div class="card-menu">
+
+                            <button class="edit-btn" type="button">
+                                <i data-lucide="pencil" aria-hidden="true"></i>
+                                <span>Edit</span>
+                            </button>
+
+                            <button class="delete-btn" type="button">
+                                <i data-lucide="trash-2" aria-hidden="true"></i>
+                                <span>Delete</span>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="package-body">
+
+                        <div class="package-category">
+                            SOUTH CEBU
+                        </div>
+
+                        <h2>
+                            Moalboal-Badian Adventure
+                        </h2>
+
+                        <p>
+                            Experience sardine runs,
+                            canyoneering and the beautiful
+                            waterfalls of South Cebu.
+                        </p>
+
+
+                        <div class="package-info">
+
+                            <span>
+                                <i data-lucide="clock-3" aria-hidden="true"></i>
+                                1 Day
+                            </span>
+
+                            <span>
+                                <i data-lucide="users" aria-hidden="true"></i>
+                                Up to 8 pax
+                            </span>
+
+                        </div>
+
+
+                        <div class="package-footer">
+
+                            <div>
+
+                                <small>
+                                    Starting at
+                                </small>
+
+                                <strong>
+                                    ₱3,500
+                                </strong>
+
+                                <small>
+                                    / person
+                                </small>
+
+                            </div>
+
+
+                            <button class="view-btn">
+                                View Details
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PACKAGE 3 -->
+                <div
+                    class="package-card"
+                    data-category="bohol"
+                    data-status="active"
+                    data-name="4D3N Cebu-Bohol Tour"
+                >
+
+                    <div class="package-image">
+
+                        <img
+                            src="images/bohol.jpg"
+                            alt="Bohol Tour"
+                        >
+
+                        <span class="status active">
+                            Active
+                        </span>
+
+                        <button
+                            class="image-menu"
+                            type="button"
+                            aria-label="Actions for Cebu and Bohol Explorer">
+                            <i data-lucide="ellipsis" aria-hidden="true"></i>
+                        </button>
+
+                        <div class="card-menu">
+
+                            <button class="edit-btn" type="button">
+                                <i data-lucide="pencil" aria-hidden="true"></i>
+                                <span>Edit</span>
+                            </button>
+
+                            <button class="delete-btn" type="button">
+                                <i data-lucide="trash-2" aria-hidden="true"></i>
+                                <span>Delete</span>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="package-body">
+
+                        <div class="package-category">
+                            CEBU - BOHOL
+                        </div>
+
+                        <h2>
+                            4D3N Cebu-Bohol Tour
+                        </h2>
+
+                        <p>
+                            Visit the Chocolate Hills,
+                            Loboc River and other popular
+                            destinations in Cebu and Bohol.
+                        </p>
+
+
+                        <div class="package-info">
+
+                            <span>
+                                <i data-lucide="clock-3" aria-hidden="true"></i>
+                                4 Days / 3 Nights
+                            </span>
+
+                            <span>
+                                <i data-lucide="users" aria-hidden="true"></i>
+                                Up to 12 pax
+                            </span>
+
+                        </div>
+
+
+                        <div class="package-footer">
+
+                            <div>
+
+                                <small>
+                                    Starting at
+                                </small>
+
+                                <strong>
+                                    ₱7,598
+                                </strong>
+
+                                <small>
+                                    / person
+                                </small>
+
+                            </div>
+
+
+                            <button class="view-btn">
+                                View Details
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PACKAGE 4 -->
+                <div
+                    class="package-card"
+                    data-category="city"
+                    data-status="active"
+                    data-name="Cebu City and Uphill Tour"
+                >
+
+                    <div class="package-image">
+
+                        <img
+                            src="images/cebu-city.jpg"
+                            alt="Cebu City"
+                        >
+
+                        <span class="status active">
+                            Active
+                        </span>
+
+                        <button
+                            class="image-menu"
+                            type="button"
+                            aria-label="Actions for Cebu City Highlights">
+                            <i data-lucide="ellipsis" aria-hidden="true"></i>
+                        </button>
+
+                        <div class="card-menu">
+
+                            <button class="edit-btn" type="button">
+                                <i data-lucide="pencil" aria-hidden="true"></i>
+                                <span>Edit</span>
+                            </button>
+
+                            <button class="delete-btn" type="button">
+                                <i data-lucide="trash-2" aria-hidden="true"></i>
+                                <span>Delete</span>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="package-body">
+
+                        <div class="package-category">
+                            CITY TOUR
+                        </div>
+
+                        <h2>
+                            Cebu City & Uphill Tour
+                        </h2>
+
+                        <p>
+                            Discover Cebu's historical landmarks,
+                            churches and beautiful mountain views.
+                        </p>
+
+
+                        <div class="package-info">
+
+                            <span>
+                                <i data-lucide="clock-3" aria-hidden="true"></i>
+                                1 Day
+                            </span>
+
+                            <span>
+                                <i data-lucide="users" aria-hidden="true"></i>
+                                Up to 10 pax
+                            </span>
+
+                        </div>
+
+
+                        <div class="package-footer">
+
+                            <div>
+
+                                <small>
+                                    Starting at
+                                </small>
+
+                                <strong>
+                                    ₱2,500
+                                </strong>
+
+                                <small>
+                                    / person
+                                </small>
+
+                            </div>
+
+
+                            <button class="view-btn">
+                                View Details
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PACKAGE 5 -->
+                <div
+                    class="package-card"
+                    data-category="south"
+                    data-status="active"
+                    data-name="Oslob Whale Shark Tour"
+                >
+
+                    <div class="package-image">
+
+                        <img
+                            src="images/oslob.jpg"
+                            alt="Oslob"
+                        >
+
+                        <span class="status active">
+                            Active
+                        </span>
+
+                        <button
+                            class="image-menu"
+                            type="button"
+                            aria-label="Actions for Oslob Whale Shark Watching">
+                            <i data-lucide="ellipsis" aria-hidden="true"></i>
+                        </button>
+
+                        <div class="card-menu">
+
+                            <button class="edit-btn" type="button">
+                                <i data-lucide="pencil" aria-hidden="true"></i>
+                                <span>Edit</span>
+                            </button>
+
+                            <button class="delete-btn" type="button">
+                                <i data-lucide="trash-2" aria-hidden="true"></i>
+                                <span>Delete</span>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="package-body">
+
+                        <div class="package-category">
+                            SOUTH CEBU
+                        </div>
+
+                        <h2>
+                            Oslob Whale Shark Tour
+                        </h2>
+
+                        <p>
+                            Enjoy a memorable day exploring
+                            Oslob and its famous attractions.
+                        </p>
+
+
+                        <div class="package-info">
+
+                            <span>
+                                <i data-lucide="clock-3" aria-hidden="true"></i>
+                                1 Day
+                            </span>
+
+                            <span>
+                                <i data-lucide="users" aria-hidden="true"></i>
+                                Up to 8 pax
+                            </span>
+
+                        </div>
+
+
+                        <div class="package-footer">
+
+                            <div>
+
+                                <small>
+                                    Starting at
+                                </small>
+
+                                <strong>
+                                    ₱4,200
+                                </strong>
+
+                                <small>
+                                    / person
+                                </small>
+
+                            </div>
+
+
+                            <button class="view-btn">
+                                View Details
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PACKAGE 6 -->
+                <div
+                    class="package-card"
+                    data-category="cebu"
+                    data-status="inactive"
+                    data-name="Cebu Island Hopping"
+                >
+
+                    <div class="package-image">
+
+                        <img
+                            src="images/island-hopping.jpg"
+                            alt="Island Hopping"
+                        >
+
+                        <span class="status inactive">
+                            Inactive
+                        </span>
+
+                        <button
+                            class="image-menu"
+                            type="button"
+                            aria-label="Actions for Island Hopping Adventure">
+                            <i data-lucide="ellipsis" aria-hidden="true"></i>
+                        </button>
+
+                        <div class="card-menu">
+
+                            <button class="edit-btn" type="button">
+                                <i data-lucide="pencil" aria-hidden="true"></i>
+                                <span>Edit</span>
+                            </button>
+
+                            <button class="delete-btn" type="button">
+                                <i data-lucide="trash-2" aria-hidden="true"></i>
+                                <span>Delete</span>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="package-body">
+
+                        <div class="package-category">
+                            CEBU TOUR
+                        </div>
+
+                        <h2>
+                            Cebu Island Hopping
+                        </h2>
+
+                        <p>
+                            Explore beautiful islands and
+                            crystal-clear waters around Cebu.
+                        </p>
+
+
+                        <div class="package-info">
+
+                            <span>
+                                <i data-lucide="clock-3" aria-hidden="true"></i>
+                                1 Day
+                            </span>
+
+                            <span>
+                                <i data-lucide="users" aria-hidden="true"></i>
+                                Up to 10 pax
+                            </span>
+
+                        </div>
+
+
+                        <div class="package-footer">
+
+                            <div>
+
+                                <small>
+                                    Starting at
+                                </small>
+
+                                <strong>
+                                    ₱3,800
+                                </strong>
+
+                                <small>
+                                    / person
+                                </small>
+
+                            </div>
+
+
+                            <button class="view-btn">
+                                View Details
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- EMPTY RESULT -->
+            <div
+                class="empty-state"
+                id="emptyState">
+
+                <i data-lucide="search-x" aria-hidden="true"></i>
+
+                <h2>
+                    No packages found
+                </h2>
+
+                <p>
+                    Try changing your search or filters.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         ADD PACKAGE MODAL
+    ========================== -->
+
+    <div
+        class="package-modal"
+        id="packageModal"
+        hidden
+        aria-hidden="true">
+
+        <section class="package-modal-content" role="dialog" aria-modal="true" aria-labelledby="packageModalTitle">
+
+            <div class="package-modal-header">
+
+                <div>
+
+                    <span>
+                        TOUR MANAGEMENT
+                    </span>
+
+                    <h2 id="packageModalTitle">Add Tour Package</h2>
+                    <p>Add the package information and optional image.</p>
+
+                </div>
+
+                <button
+                    class="close-modal"
+                    id="closeModal"
+                    type="button"
+                    aria-label="Close dialog">
+                    <i data-lucide="x" aria-hidden="true"></i>
+
+                </button>
+
+            </div>
+
+
+            <form id="packageForm">
+
+                <div class="package-modal-body">
+
+
+                <div class="form-group">
+
+                    <label for="packageName">
+                        Package Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="packageName"
+                        placeholder="e.g. 3D2N Cebu Tour"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="packageCategory">
+                            Category
+                        </label>
+
+                        <select
+                            id="packageCategory"
+                            required>
+
+                            <option value="">
+                                Select category
+                            </option>
+
+                            <option value="cebu">
+                                Cebu Tours
+                            </option>
+
+                            <option value="bohol">
+                                Cebu-Bohol
+                            </option>
+
+                            <option value="south">
+                                South Cebu
+                            </option>
+
+                            <option value="city">
+                                City Tours
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="packageStatus">
+                            Status
+                        </label>
+
+                        <select
+                            id="packageStatus"
+                            required>
+
+                            <option value="active">
+                                Active
+                            </option>
+
+                            <option value="inactive">
+                                Inactive
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="packagePrice">
+                            Price / Person
+                        </label>
+
+                        <input
+                            type="number"
+                            id="packagePrice"
+                            placeholder="5098"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="packagePax">
+                            Maximum Pax
+                        </label>
+
+                        <input
+                            type="number"
+                            id="packagePax"
+                            placeholder="10"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="packageDuration">
+                        Duration
+                    </label>
+
+                    <input
+                        type="text"
+                        id="packageDuration"
+                        placeholder="e.g. 3 Days / 2 Nights"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="packageDescription">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="packageDescription"
+                        rows="4"
+                        placeholder="Describe the tour package..."
+                        required></textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="packageImage">
+                        Package Image
+                    </label>
+
+                    <input
+                        type="file"
+                        id="packageImage"
+                        accept="image/*"
+                    >
+
+                </div>
+
+
+                </div>
+
+                <div class="package-modal-actions">
+
+                    <button
+                        type="button"
+                        class="cancel-btn"
+                        id="cancelModal">
+
+                        Cancel
+
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="save-btn">
+
+                        Save Package
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </div>
+
+
+    <div class="modal-backdrop" id="actionModalBackdrop" hidden aria-hidden="true">
+        <section class="modal modal-sm" role="dialog" aria-modal="true" aria-labelledby="actionModalTitle" aria-describedby="actionModalSubtitle">
+            <header class="modal-header">
+                <div>
+                    <h2 id="actionModalTitle">Action</h2>
+                    <p id="actionModalSubtitle"></p>
+                </div>
+                <button class="modal-close" id="actionModalClose" type="button" aria-label="Close dialog">
+                    <i data-lucide="x" aria-hidden="true"></i>
+                </button>
+            </header>
+            <div class="modal-body" id="actionModalBody"></div>
+            <footer class="modal-footer">
+                <button class="secondary-button" id="actionModalCancel" type="button">Cancel</button>
+                <button class="primary-button" id="actionModalConfirm" type="button">Continue</button>
+            </footer>
+        </section>
+    </div>
+    <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="false"></div>
+
+    <script src="js/tour-packages.js"></script>
+
+</body>
+</html>
+

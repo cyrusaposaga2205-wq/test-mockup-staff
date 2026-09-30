@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bookings | Uncle Ron's Travel and Tours</title>
+
+    <link rel="stylesheet" href="css/booking.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-logo">
+
+            <img
+                src="images/logo.png"
+                alt="Uncle Ron's Travel and Tours"
+            >
+
+            <h3>UNCLE RON'S</h3>
+
+            <span>
+                TRAVEL AND TOURS
+            </span>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a href="index.html" class="nav-link">
+                <span class="icon"><i data-lucide="layout-dashboard" aria-hidden="true"></i></span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="tour-packages.html" class="nav-link">
+                <span class="icon"><i data-lucide="package" aria-hidden="true"></i></span>
+                <span>Tour Packages</span>
+            </a>
+
+            <a href="bookings.html" class="nav-link active" aria-current="page">
+                <span class="icon"><i data-lucide="calendar-check" aria-hidden="true"></i></span>
+                <span>Bookings</span>
+
+                <span class="nav-badge">
+                    8
+                </span>
+            </a>
+
+            <a href="customers.html" class="nav-link">
+                <span class="icon"><i data-lucide="users" aria-hidden="true"></i></span>
+                <span>Customers</span>
+            </a>
+
+            <a href="reviews.html" class="nav-link">
+                <span class="icon"><i data-lucide="star" aria-hidden="true"></i></span>
+                <span>Reviews</span>
+
+                <span class="nav-badge">
+                    3
+                </span>
+            </a>
+
+            <a href="reports.html" class="nav-link">
+                <span class="icon"><i data-lucide="chart-no-axes-column-increasing" aria-hidden="true"></i></span>
+                <span>Reports</span>
+            </a>
+
+            <a href="settings.html" class="nav-link">
+                <span class="icon"><i data-lucide="settings" aria-hidden="true"></i></span>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-footer">
+
+            <div class="admin-mini">
+
+                <div class="admin-avatar">
+                    J
+                </div>
+
+                <div>
+                    <strong>Jonas Reyes</strong>
+                    <small>Staff</small>
+                </div>
+
+            </div>
+
+
+            <button
+                class="logout-button"
+                id="logoutButton">
+
+                <span class="logout-icon" aria-hidden="true"><i data-lucide="log-out"></i></span>
+                <span class="logout-label">Logout</span>
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =========================
+         MAIN
+    ========================== -->
+
+    <main class="main-content">
+
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <button
+                class="mobile-menu"
+                id="mobileMenu"
+                type="button"
+                aria-label="Hide sidebar"
+                aria-controls="sidebar"
+                aria-expanded="true"
+                title="Hide sidebar">
+                <i data-lucide="menu" aria-hidden="true"></i>
+            </button>
+
+
+            <div class="search-container">
+
+                <span class="search-icon"><i data-lucide="search" aria-hidden="true"></i></span>
+
+                <input
+                    type="text"
+                    id="globalSearch"
+                    placeholder="Search bookings, customers, packages..."
+                >
+
+            </div>
+
+
+            <div class="topbar-right">
+
+                <button
+                    class="notification-button"
+                    id="notificationButton">
+
+                    <i data-lucide="bell" aria-hidden="true"></i>
+
+                    <span>
+                        3
+                    </span>
+
+                </button>
+
+
+                <div class="admin-profile">
+
+                    <div class="admin-avatar">
+                        J
+                    </div>
+
+                    <div class="admin-profile-info">
+
+                        <strong>
+                            Jonas Reyes
+                        </strong>
+
+                        <small>
+                            Staff
+                        </small>
+
+                    </div>
+
+                    <span class="dropdown-arrow">
+                        ▾
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================
+             PAGE CONTENT
+        ========================== -->
+
+        <section class="dashboard-content">
+
+
+            <!-- PAGE HEADER -->
+
+            <section class="page-header">
+
+                <div>
+
+                    <h1>
+                        Bookings
+                    </h1>
+
+                    <p>
+                        Manage all customer reservations and booking statuses.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="primary-button"
+                    id="addBookingButton">
+
+                    <i data-lucide="plus" aria-hidden="true"></i>
+                    New Booking
+
+                </button>
+
+            </section>
+
+
+            <!-- STAT MINI CARDS -->
+
+            <section class="mini-stats">
+
+
+                <div class="mini-stat">
+
+                    <div class="mini-stat-icon blue">
+                        <i data-lucide="clipboard-list" aria-hidden="true"></i>
+                    </div>
+
+                    <div>
+                        <span>Total</span>
+                        <strong id="statTotal">0</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="mini-stat">
+
+                    <div class="mini-stat-icon yellow">
+                        <i data-lucide="clock-3" aria-hidden="true"></i>
+                    </div>
+
+                    <div>
+                        <span>Pending</span>
+                        <strong id="statPending">0</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="mini-stat">
+
+                    <div class="mini-stat-icon green">
+                        <i data-lucide="check-circle-2" aria-hidden="true"></i>
+                    </div>
+
+                    <div>
+                        <span>Confirmed</span>
+                        <strong id="statConfirmed">0</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="mini-stat">
+
+                    <div class="mini-stat-icon purple">
+                        <i data-lucide="check-check" aria-hidden="true"></i>
+                    </div>
+
+                    <div>
+                        <span>Completed</span>
+                        <strong id="statCompleted">0</strong>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- FILTER BAR -->
+
+            <section class="filter-bar">
+
+                <div class="filter-tabs">
+
+                    <button class="filter-tab active" data-filter="all">
+                        All
+                    </button>
+
+                    <button class="filter-tab" data-filter="pending">
+                        Pending
+                    </button>
+
+                    <button class="filter-tab" data-filter="confirmed">
+                        Confirmed
+                    </button>
+
+                    <button class="filter-tab" data-filter="completed">
+                        Completed
+                    </button>
+
+                    <button class="filter-tab" data-filter="cancelled">
+                        Cancelled
+                    </button>
+
+                </div>
+
+
+                <div class="filter-sort">
+
+                    <label for="sortSelect">
+                        Sort by:
+                    </label>
+
+                    <select id="sortSelect">
+
+                        <option value="newest">
+                            Newest
+                        </option>
+
+                        <option value="oldest">
+                            Oldest
+                        </option>
+
+                        <option value="amount-high">
+                            Amount: High to Low
+                        </option>
+
+                        <option value="amount-low">
+                            Amount: Low to High
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </section>
+
+
+            <!-- BOOKINGS TABLE -->
+
+            <section class="dashboard-card">
+
+                <div class="table-wrapper">
+
+                    <table id="bookingsTable">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Booking ID
+                                </th>
+
+                                <th>
+                                    Customer
+                                </th>
+
+                                <th>
+                                    Package
+                                </th>
+
+                                <th>
+                                    Tour Date
+                                </th>
+
+                                <th>
+                                    Pax
+                                </th>
+
+                                <th>
+                                    Amount
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th class="th-actions">
+                                    Actions
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+
+                            <tr
+                                data-id="BK-001248"
+                                data-customer="Maria Santos"
+                                data-email="maria.santos@email.com"
+                                data-phone="+63 917 555 0101"
+                                data-location="Cebu City"
+                                data-emergency-name="Rafael Santos"
+                                data-emergency-phone="+63 917 555 0102"
+                                data-package="3D2N Cebu Tour"
+                                data-tour-date="2026-10-05"
+                                data-duration="3 Days / 2 Nights"
+                                data-pax="4"
+                                data-meeting-point="Hotel Lobby"
+                                data-guide="Patrick Reyes"
+                                data-status="confirmed"
+                                data-amount="20392"
+                                data-paid="20392"
+                                data-payment-method="GCash"
+                                data-payment-status="Paid"
+                                data-notes="Vegetarian meal requested."
+                                data-payment-received="2026-09-28T09:20"
+                                data-guide-assigned="2026-09-28T09:40"
+                                data-tour-time="06:00"
+                                data-completed=""
+                                data-created="2026-09-28T09:15">
+
+                                <td>
+                                    <strong>
+                                        BK-001248
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    Maria Santos
+                                </td>
+
+                                <td>
+                                    3D2N Cebu Tour
+                                </td>
+
+                                <td>
+                                    Oct 05, 2026
+                                </td>
+
+                                <td>
+                                    4
+                                </td>
+
+                                <td>
+                                    ₱20,392
+                                </td>
+
+                                <td>
+                                    <span class="status confirmed">
+                                        Confirmed
+                                    </span>
+                                </td>
+
+                                <td>
+
+                                    <div class="row-actions">
+
+                                        <button class="icon-button view-button" title="View details" aria-label="View booking details">
+                                            <i data-lucide="eye" aria-hidden="true"></i>
+                                        </button>
+
+                                        <button class="icon-button edit-button" title="Edit">
+                                            <i data-lucide="pencil" aria-hidden="true"></i>
+                                        </button>
+
+                                        <button class="icon-button delete-button" title="Delete">
+                                            <i data-lucide="trash-2" aria-hidden="true"></i>
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+                            <tr
+                                data-id="BK-001247"
+                                data-customer="John Dela Cruz"
+                                data-email="john.delacruz@email.com"
+                                data-phone="+63 917 555 0110"
+                                data-location="Lapu-Lapu City"
+                                data-emergency-name="Mina Dela Cruz"
+                                data-emergency-phone="+63 917 555 0111"
+                                data-package="4D3N Cebu-Bohol"
+                                data-tour-date="2026-10-08"
+                                data-duration="4 Days / 3 Nights"
+                                data-pax="6"
+                                data-meeting-point="Cebu Port"
+                                data-guide="Sofia Lim"
+                                data-status="pending"
+                                data-amount="45588"
+                                data-paid="12000"
+                                data-payment-method="Maya"
+                                data-payment-status="Partial"
+                                data-notes=""
+                                data-payment-received="2026-09-27T12:15"
+                                data-guide-assigned="2026-09-27T12:40"
+                                data-tour-time="07:00"
+                                data-completed=""
+                                data-created="2026-09-27T11:30">
+
+                                <td>
+                                    <strong>
+                                        BK-001247
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    John Dela Cruz
+                                </td>
+
+                                <td>
+                                    4D3N Cebu-Bohol
+                                </td>
+
+                                <td>
+                                    Oct 08, 2026
+                                </td>
+
+                                <td>
+                                    6
+                                </td>
+
+                                <td>
+                                    ₱45,588
+                                </td>
+
+                                <td>
+                                    <span class="status pending">
+                                        Pending
+                                    </span>
+                                </td>
+
+                                <td>
+
+                                    <div class="row-actions">
+
+                                        <button class="icon-button view-button" title="View details" aria-label="View booking details">
+                                            <i data-lucide="eye" aria-hidden="true"></i>
+                                        </button>
+
+                                        <button class="icon-button edit-button" title="Edit">
+                                            <i data-lucide="pencil" aria-hidden="true"></i>
+                                        </button>
+
+                                        <button class="icon-button delete-button" title="Delete">
+                                            <i data-lucide="trash-2" aria-hidden="true"></i>
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+                            <tr
+                                data-id="BK-001246"
+                                data-customer="Ana Reyes"
+                                data-email="ana.reyes@email.com"
+                                data-phone="+63 917 555 0120"
+                                data-location="Talisay City"
+                                data-emergency-name="Paolo Reyes"
+                                data-emergency-phone="+63 917 555 0121"
+                                data-package="Moalboal-Badian"
+                                data-tour-date="2026-10-12"
+                                data-duration="2 Days / 1 Night"
+                                data-pax="5"
+                                data-meeting-point="South Bus Terminal"
+                                data-guide="Carlos Flores"
+                                data-status="confirmed"
+                                data-amount="25490"
+                                data-paid="25490"
+                                data-payment-method="Bank"
+                                data-payment-status="Paid"
+                                data-notes=""
+                                data-payment-received="2026-09-26T15:00"
+                                data-guide-assigned="2026-09-26T15:30"
+                                data-tour-time="05:30"
+                                data-completed=""
+                                data-created="2026-09-26T14:20">
+
+                                <td>
+                                    <strong>
+                                        BK-001246
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    Ana Reyes
+                                </td>
+
+                                <td>
+                                    Moalboal-Badian
+                                </td>
+
+                                <td>
+                                    Oct 12, 2026
+                                </td>
+
+                                <td>
+                                    5
+                                </td>
+
+                                <td>
+                                    ₱25,490
+                                </td>
+
+                                <td>
+                                    <span class="status confirmed">
+                                        Confirmed
+                                    </span>
+                                </td>
+
+                                <td>
+
+                                    <div class="row-actions">
+
+                                        <button class="icon-button view-button" title="View details" aria-label="View booking details">
+                                            <i data-lucide="eye" aria-hidden="true"></i>
+                                        </button>
+
+                                        <button class="icon-button edit-button" title="Edit">
+                                            <i data-lucide="pencil" aria-hidden="true"></i>
+                                        </button>
+
+                                        <button class="icon-button delete-button" title="Delete">
+                                            <i data-lucide="trash-2" aria-hidden="true"></i>
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+                            <tr
+                                data-id="BK-001245"
+                                data-customer="Claire Tan"
+                                data-email="claire.tan@email.com"
+                                data-phone="+63 917 555 0130"
+                                data-location="Cebu City"
+                                data-emergency-name="Lena Tan"
+                                data-emergency-phone="+63 917 555 0131"
+                                data-package="Oslob-Simala"
+                                data-tour-date="2026-10-15"
+                                data-duration="2 Days / 1 Night"
+                                data-pax="3"
+                                data-meeting-point="Hotel Lobby"
+                                data-guide="Patrick Reyes"
+                                data-status="completed"
+                                data-amount="15294"
+                                data-paid="15294"
+                                data-payment-method="Card"
+                                data-payment-status="Paid"
+                                data-notes="Tour completed."
+                                data-payment-received="2026-09-24T09:00"
+                                data-guide-assigned="2026-09-24T09:15"
+                                data-tour-time="06:00"
+                                data-completed="2026-10-15T18:30"
+                                data-created="2026-09-24T08:45">
+
+                                <td>
+                                    <strong>
+                                        BK-001245
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    Claire Tan
+                                </td>
+
+                                <td>
+                                    Oslob-Simala
+                                </td>
+
+                                <td>
+                                    Oct 15, 2026
+                                </td>
+
+                                <td>
+                                    3
+                                </td>
+
+                                <td>
+                                    ₱15,294
+                                </td>
+
+                                <td>
+                                    <span class="status completed">
+                                        Completed
+                                    </span>
+                                </td>
+
+                                <td>
+
+                                    <div class="row-actions">
+
+                                        <button class="icon-button view-button" title="View details" aria-label="View booking details">
+                                            <i data-lucide="eye" aria-hidden="true"></i>
+                                        </button>
+
+                                        <button class="icon-button edit-button" title="Edit">
+                                            <i data-lucide="pencil" aria-hidden="true"></i>
+                                        </button>
+
+                                        <button class="icon-button delete-button" title="Delete">
+                                            <i data-lucide="trash-2" aria-hidden="true"></i>
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+                            <tr
+                                data-id="BK-001244"
+                                data-customer="Mark Villanueva"
+                                data-email="mark.villanueva@email.com"
+                                data-phone="+63 917 555 0140"
+                                data-location="Mandaue City"
+                                data-emergency-name="Rosa Villanueva"
+                                data-emergency-phone="+63 917 555 0141"
+                                data-package="Moalboal-Badian"
+                                data-tour-date="2026-10-18"
+                                data-duration="2 Days / 1 Night"
+                                data-pax="1"
+                                data-meeting-point="South Bus Terminal"
+                                data-guide="Unassigned"
+                                data-status="pending"
+                                data-amount="3500"
+                                data-paid="0"
+                                data-payment-method="Cash"
+                                data-payment-status="Unpaid"
+                                data-notes=""
+                                data-payment-received=""
+                                data-guide-assigned=""
+                                data-tour-time="06:30"
+                                data-completed=""
+                                data-created="2026-09-23T16:05">
+
+                                <td>
+                                    <strong>
+                                        BK-001244
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    Mark Villanueva
+                                </td>
+
+                                <td>
+                                    Moalboal-Badian
+                                </td>
+
+                                <td>
+                                    Oct 18, 2026
+                                </td>
+
+                                <td>
+                                    1
+                                </td>
+
+                                <td>
+                                    ₱3,500
+                                </td>
+
+                                <td>
+                                    <span class="status pending">
+                                        Pending
+                                    </span>
+                                </td>
+
+                                <td>
+
+                                    <div class="row-actions">
+
+                                        <button class="icon-button view-button" title="View details" aria-label="View booking details">
+                                            <i data-lucide="eye" aria-hidden="true"></i>
+                                        </button>
+
+                                        <button class="icon-button edit-button" title="Edit">
+                                            <i data-lucide="pencil" aria-hidden="true"></i>
+                                        </button>
+
+                                        <button class="icon-button delete-button" title="Delete">
+                                            <i data-lucide="trash-2" aria-hidden="true"></i>
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+                            <tr
+                                data-id="BK-001243"
+                                data-customer="Sophia Lim"
+                                data-email="sophia.lim@email.com"
+                                data-phone="+63 917 555 0150"
+                                data-location="Cebu City"
+                                data-emergency-name="Henry Lim"
+                                data-emergency-phone="+63 917 555 0151"
+                                data-package="4D3N Cebu-Bohol"
+                                data-tour-date="2026-10-20"
+                                data-duration="4 Days / 3 Nights"
+                                data-pax="2"
+                                data-meeting-point="Pier 1"
+                                data-guide="Unassigned"
+                                data-status="cancelled"
+                                data-amount="15196"
+                                data-paid="7598"
+                                data-payment-method="GCash"
+                                data-payment-status="Partial"
+                                data-notes="Customer requested cancellation."
+                                data-payment-received="2026-09-21T10:30"
+                                data-guide-assigned=""
+                                data-tour-time="07:00"
+                                data-completed=""
+                                data-created="2026-09-21T10:00">
+
+                                <td>
+                                    <strong>
+                                        BK-001243
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    Sophia Lim
+                                </td>
+
+                                <td>
+                                    4D3N Cebu-Bohol
+                                </td>
+
+                                <td>
+                                    Oct 20, 2026
+                                </td>
+
+                                <td>
+                                    2
+                                </td>
+
+                                <td>
+                                    ₱15,196
+                                </td>
+
+                                <td>
+                                    <span class="status cancelled">
+                                        Cancelled
+                                    </span>
+                                </td>
+
+                                <td>
+
+                                    <div class="row-actions">
+
+                                        <button class="icon-button view-button" title="View details" aria-label="View booking details">
+                                            <i data-lucide="eye" aria-hidden="true"></i>
+                                        </button>
+
+                                        <button class="icon-button edit-button" title="Edit">
+                                            <i data-lucide="pencil" aria-hidden="true"></i>
+                                        </button>
+
+                                        <button class="icon-button delete-button" title="Delete">
+                                            <i data-lucide="trash-2" aria-hidden="true"></i>
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+                            <tr
+                                data-id="BK-001242"
+                                data-customer="Daniel Ortiz"
+                                data-email="daniel.ortiz@email.com"
+                                data-phone="+63 917 555 0160"
+                                data-location="Lapu-Lapu City"
+                                data-emergency-name="Ramon Ortiz"
+                                data-emergency-phone="+63 917 555 0161"
+                                data-package="Oslob-Simala"
+                                data-tour-date="2026-10-22"
+                                data-duration="2 Days / 1 Night"
+                                data-pax="5"
+                                data-meeting-point="Hotel Lobby"
+                                data-guide="Carlos Flores"
+                                data-status="confirmed"
+                                data-amount="25490"
+                                data-paid="25490"
+                                data-payment-method="Cash"
+                                data-payment-status="Paid"
+                                data-notes=""
+                                data-payment-received="2026-09-20T14:00"
+                                data-guide-assigned="2026-09-20T14:15"
+                                data-tour-time="06:00"
+                                data-completed=""
+                                data-created="2026-09-20T13:35">
+
+                                <td>
+                                    <strong>
+                                        BK-001242
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    Daniel Ortiz
+                                </td>
+
+                                <td>
+                                    Oslob-Simala
+                                </td>
+
+                                <td>
+                                    Oct 22, 2026
+                                </td>
+
+                                <td>
+                                    5
+                                </td>
+
+                                <td>
+                                    ₱25,490
+                                </td>
+
+                                <td>
+                                    <span class="status confirmed">
+                                        Confirmed
+                                    </span>
+                                </td>
+
+                                <td>
+
+                                    <div class="row-actions">
+
+                                        <button class="icon-button view-button" title="View details" aria-label="View booking details">
+                                            <i data-lucide="eye" aria-hidden="true"></i>
+                                        </button>
+
+                                        <button class="icon-button edit-button" title="Edit">
+                                            <i data-lucide="pencil" aria-hidden="true"></i>
+                                        </button>
+
+                                        <button class="icon-button delete-button" title="Delete">
+                                            <i data-lucide="trash-2" aria-hidden="true"></i>
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+                            <tr
+                                data-id="BK-001241"
+                                data-customer="Grace Bautista"
+                                data-email="grace.bautista@email.com"
+                                data-phone="+63 917 555 0170"
+                                data-location="Cebu City"
+                                data-emergency-name="Noel Bautista"
+                                data-emergency-phone="+63 917 555 0171"
+                                data-package="3D2N Cebu Tour"
+                                data-tour-date="2026-10-25"
+                                data-duration="3 Days / 2 Nights"
+                                data-pax="4"
+                                data-meeting-point="Hotel Lobby"
+                                data-guide="Sofia Lim"
+                                data-status="completed"
+                                data-amount="20392"
+                                data-paid="20392"
+                                data-payment-method="Card"
+                                data-payment-status="Paid"
+                                data-notes="Tour completed."
+                                data-payment-received="2026-09-18T09:15"
+                                data-guide-assigned="2026-09-18T09:30"
+                                data-tour-time="06:00"
+                                data-completed="2026-10-25T18:00"
+                                data-created="2026-09-18T09:00">
+
+                                <td>
+                                    <strong>
+                                        BK-001241
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    Grace Bautista
+                                </td>
+
+                                <td>
+                                    3D2N Cebu Tour
+                                </td>
+
+                                <td>
+                                    Oct 25, 2026
+                                </td>
+
+                                <td>
+                                    4
+                                </td>
+
+                                <td>
+                                    ₱20,392
+                                </td>
+
+                                <td>
+                                    <span class="status completed">
+                                        Completed
+                                    </span>
+                                </td>
+
+                                <td>
+
+                                    <div class="row-actions">
+
+                                        <button class="icon-button view-button" title="View details" aria-label="View booking details">
+                                            <i data-lucide="eye" aria-hidden="true"></i>
+                                        </button>
+
+                                        <button class="icon-button edit-button" title="Edit">
+                                            <i data-lucide="pencil" aria-hidden="true"></i>
+                                        </button>
+
+                                        <button class="icon-button delete-button" title="Delete">
+                                            <i data-lucide="trash-2" aria-hidden="true"></i>
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <!-- EMPTY STATE -->
+
+                <div
+                    class="empty-state"
+                    id="emptyState"
+                    hidden>
+
+                    <i data-lucide="calendar-x" aria-hidden="true"></i>
+
+                    <h3>
+                        No bookings found
+                    </h3>
+
+                    <p>
+                        Try a different filter or search keyword.
+                    </p>
+
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <div class="modal-backdrop" id="bookingDetailsBackdrop" hidden aria-hidden="true">
+        <section class="modal modal-lg booking-details-modal" role="dialog" aria-modal="true" aria-labelledby="bookingDetailsTitle">
+            <header class="modal-header">
+                <div>
+                    <h2 id="bookingDetailsTitle">Booking Details <span id="detailBookingId"></span></h2>
+                    <p id="detailPackageName"></p>
+                </div>
+                <button class="modal-close" id="closeBookingDetails" type="button" aria-label="Close booking details">
+                    <i data-lucide="x" aria-hidden="true"></i>
+                </button>
+            </header>
+            <div class="modal-body booking-detail-body">
+                <div class="status-strip" id="bookingStatusStrip" aria-label="Booking status">
+                    <button class="status-pill" type="button" data-status="pending"><i data-lucide="clock-3" aria-hidden="true"></i>Pending</button>
+                    <button class="status-pill" type="button" data-status="confirmed"><i data-lucide="circle-check" aria-hidden="true"></i>Confirmed</button>
+                    <button class="status-pill" type="button" data-status="completed"><i data-lucide="flag" aria-hidden="true"></i>Completed</button>
+                    <button class="status-pill" type="button" data-status="cancelled"><i data-lucide="circle-x" aria-hidden="true"></i>Cancelled</button>
+                </div>
+
+                <div class="detail-grid">
+                    <section class="detail-block">
+                        <h4><i data-lucide="user-round" aria-hidden="true"></i>Customer Details</h4>
+                        <div class="detail-row"><span>Full Name</span><strong id="detailCustomer"></strong></div>
+                        <div class="detail-row"><span>Email</span><strong id="detailEmail"></strong></div>
+                        <div class="detail-row"><span>Phone</span><strong id="detailPhone"></strong></div>
+                        <div class="detail-row"><span>Location</span><strong id="detailLocation"></strong></div>
+                        <div class="detail-row"><span>Emergency Contact</span><strong id="detailEmergency"></strong></div>
+                    </section>
+
+                    <section class="detail-block">
+                        <h4><i data-lucide="map" aria-hidden="true"></i>Tour Details</h4>
+                        <div class="detail-row"><span>Package</span><strong id="detailPackage"></strong></div>
+                        <div class="detail-row"><span>Tour Date</span><strong id="detailTourDate"></strong></div>
+                        <div class="detail-row"><span>Duration</span><strong id="detailDuration"></strong></div>
+                        <div class="detail-row"><span>Number of Pax</span><strong id="detailPax"></strong></div>
+                        <div class="detail-row"><span>Meeting Point</span><strong id="detailMeetingPoint"></strong></div>
+                        <label class="detail-row guide-row" for="detailGuide"><span>Assigned Guide</span>
+                            <select id="detailGuide" class="detail-guide-select">
+                                <option>Patrick Reyes</option><option>Sofia Lim</option><option>Carlos Flores</option><option>Unassigned</option>
+                            </select>
+                        </label>
+                    </section>
+
+                    <section class="detail-block">
+                        <h4><i data-lucide="wallet-cards" aria-hidden="true"></i>Payment Details</h4>
+                        <div class="detail-row"><span>Total Amount</span><strong id="detailAmount"></strong></div>
+                        <div class="detail-row"><span>Amount Paid</span><strong class="amount-paid" id="detailPaid"></strong></div>
+                        <div class="detail-row"><span>Balance Due</span><strong id="detailBalance"></strong></div>
+                        <div class="payment-progress-track" role="progressbar" id="paymentProgress" aria-label="Payment progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="paymentProgressFill"></span></div>
+                        <div class="payment-progress-label"><span>Payment progress</span><strong id="paymentProgressText">0% paid</strong></div>
+                        <div class="detail-row"><span>Payment Method</span><strong id="detailPaymentMethod"></strong></div>
+                        <div class="detail-row"><span>Payment Status</span><strong id="detailPaymentStatus"></strong></div>
+                    </section>
+
+                    <section class="detail-block">
+                        <h4><i data-lucide="notebook-pen" aria-hidden="true"></i>Special Requests / Notes</h4>
+                        <label class="visually-hidden" for="detailNotes">Special requests and notes</label>
+                        <textarea id="detailNotes" class="booking-notes" placeholder="Add notes about this booking..."></textarea>
+                    </section>
+
+                    <section class="detail-block full-width">
+                        <h4><i data-lucide="list-checks" aria-hidden="true"></i>Booking Timeline</h4>
+                        <ol class="booking-timeline">
+                            <li data-timeline-step="created"><span class="timeline-dot"></span><div><strong>Booking Created</strong><small id="timelineCreated"></small></div></li>
+                            <li data-timeline-step="payment"><span class="timeline-dot"></span><div><strong>Payment Received</strong><small id="timelinePayment"></small></div></li>
+                            <li data-timeline-step="guide"><span class="timeline-dot"></span><div><strong>Guide Assigned</strong><small id="timelineGuide"></small></div></li>
+                            <li data-timeline-step="tour"><span class="timeline-dot"></span><div><strong>Tour Date</strong><small id="timelineTour"></small></div></li>
+                            <li data-timeline-step="completed"><span class="timeline-dot"></span><div><strong>Completed</strong><small id="timelineCompleted"></small></div></li>
+                        </ol>
+                    </section>
+                </div>
+            </div>
+            <footer class="modal-footer booking-modal-footer">
+                <div class="booking-footer-support">
+                    <button class="secondary-button" type="button" id="printInvoice"><i data-lucide="printer" aria-hidden="true"></i>Print Invoice</button>
+                    <button class="secondary-button" type="button" id="emailCustomer"><i data-lucide="mail" aria-hidden="true"></i>Email Customer</button>
+                    <button class="secondary-button" type="button" id="sendReminder"><i data-lucide="send" aria-hidden="true"></i>Send Reminder</button>
+                </div>
+                <div class="booking-footer-primary">
+                    <button class="secondary-button" type="button" id="closeBookingDetailsFooter">Close</button>
+                    <button class="primary-button" type="button" id="editBookingFromDetails"><i data-lucide="pencil" aria-hidden="true"></i>Edit Booking</button>
+                    <button class="primary-button" type="button" id="saveBookingDetails" hidden>Save Changes</button>
+                </div>
+            </footer>
+        </section>
+    </div>
+
+    <div class="modal-backdrop" id="editBookingBackdrop" hidden aria-hidden="true">
+        <section class="modal modal-lg booking-edit-modal" role="dialog" aria-modal="true" aria-labelledby="editBookingTitle">
+            <header class="modal-header">
+                <div><h2 id="editBookingTitle">Edit Booking</h2><p>Update customer, tour, and payment information.</p></div>
+                <button class="modal-close" id="closeEditBooking" type="button" aria-label="Close edit booking">
+                    <i data-lucide="x" aria-hidden="true"></i>
+                </button>
+            </header>
+            <form id="editBookingForm" novalidate>
+                <input type="hidden" id="editBookingId" name="id">
+                <div class="modal-body booking-edit-body">
+                    <div class="booking-edit-grid">
+                        <label class="modal-field">Customer Name<input id="editCustomer" name="customer" required></label>
+                        <label class="modal-field">Email<input id="editEmail" name="email" type="email" required></label>
+                        <label class="modal-field">Phone<input id="editPhone" name="phone" type="tel" required></label>
+                        <label class="modal-field">Location<input id="editLocation" name="location" required></label>
+                        <label class="modal-field">Package<input id="editPackage" name="package" required></label>
+                        <label class="modal-field">Tour Date<input id="editTourDate" name="tourDate" type="date" required></label>
+                        <label class="modal-field">Pax<input id="editPax" name="pax" type="number" min="1" step="1" required></label>
+                        <label class="modal-field">Amount (₱)<input id="editAmount" name="amount" type="number" min="0" step="0.01" required></label>
+                        <label class="modal-field">Amount Paid (₱)<input id="editPaid" name="paid" type="number" min="0" step="0.01" required></label>
+                        <label class="modal-field">Payment Method<select id="editPaymentMethod" name="paymentMethod" required><option>GCash</option><option>Maya</option><option>Bank</option><option>Cash</option><option>Card</option></select></label>
+                        <label class="modal-field">Assigned Guide<select id="editGuide" name="guide" required><option>Patrick Reyes</option><option>Sofia Lim</option><option>Carlos Flores</option><option>Unassigned</option></select></label>
+                        <label class="modal-field">Status<select id="editStatus" name="status" required><option value="pending">Pending</option><option value="confirmed">Confirmed</option><option value="completed">Completed</option><option value="cancelled">Cancelled</option></select></label>
+                        <label class="modal-field edit-full-width">Special Requests<textarea id="editNotes" name="notes" placeholder="Add notes about this booking..."></textarea></label>
+                    </div>
+                </div>
+                <footer class="modal-footer">
+                    <button class="secondary-button" type="button" id="cancelEditBooking">Cancel</button>
+                    <button class="primary-button" type="submit">Save Changes</button>
+                </footer>
+            </form>
+        </section>
+    </div>
+
+    <div class="modal-backdrop" id="actionModalBackdrop" hidden aria-hidden="true">
+        <section class="modal modal-sm" role="dialog" aria-modal="true" aria-labelledby="actionModalTitle" aria-describedby="actionModalSubtitle">
+            <header class="modal-header">
+                <div>
+                    <h2 id="actionModalTitle">Action</h2>
+                    <p id="actionModalSubtitle"></p>
+                </div>
+                <button class="modal-close" id="actionModalClose" type="button" aria-label="Close dialog">
+                    <i data-lucide="x" aria-hidden="true"></i>
+                </button>
+            </header>
+            <div class="modal-body" id="actionModalBody"></div>
+            <footer class="modal-footer">
+                <button class="secondary-button" id="actionModalCancel" type="button">Cancel</button>
+                <button class="primary-button" id="actionModalConfirm" type="button">Continue</button>
+            </footer>
+        </section>
+    </div>
+    <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="false"></div>
+
+    <script src="js/bookings.js"></script>
+
+</body>
+</html>

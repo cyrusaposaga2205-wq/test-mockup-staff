@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Staff Dashboard | Uncle Ron's Travel and Tours</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-logo">
+
+            <img
+                src="images/logo.png"
+                alt="Uncle Ron's Travel and Tours"
+            >
+
+            <h3>UNCLE RON'S</h3>
+
+            <span>
+                TRAVEL AND TOURS
+            </span>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a href="index.html" class="nav-link active" aria-current="page">
+                <span class="icon"><i data-lucide="layout-dashboard" aria-hidden="true"></i></span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="tour-packages.html" class="nav-link">
+                <span class="icon"><i data-lucide="map" aria-hidden="true"></i></span>
+                <span>Tour Packages</span>
+
+                <span class="nav-badge">
+                    3
+                </span>
+            </a>
+
+            <a href="bookings.html" class="nav-link">
+                <span class="icon"><i data-lucide="calendar-check" aria-hidden="true"></i></span>
+                <span>Bookings</span>
+
+                <span class="nav-badge">
+                    5
+                </span>
+            </a>
+
+            <a href="customers.html" class="nav-link">
+                <span class="icon"><i data-lucide="users" aria-hidden="true"></i></span>
+                <span>Customers</span>
+            </a>
+
+            <a href="reviews.html" class="nav-link">
+                <span class="icon"><i data-lucide="star" aria-hidden="true"></i></span>
+                <span>Reviews</span>
+            </a>
+
+            <a href="reports.html" class="nav-link">
+                <span class="icon"><i data-lucide="calendar-days" aria-hidden="true"></i></span>
+                <span>Reports</span>
+            </a>
+
+
+            <a href="settings.html" class="nav-link">
+                <span class="icon"><i data-lucide="settings" aria-hidden="true"></i></span>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-footer">
+
+            <div class="admin-mini">
+
+                <div class="admin-avatar">
+                    J
+                </div>
+
+                <div>
+                    <strong>Jonas Reyes</strong>
+                    <small>Staff</small>
+                </div>
+
+            </div>
+
+
+            <button
+                class="logout-button"
+                id="logoutButton">
+
+                <span class="logout-icon" aria-hidden="true"><i data-lucide="log-out"></i></span>
+                <span class="logout-label">Logout</span>
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =========================
+         MAIN
+    ========================== -->
+
+    <main class="main-content">
+
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <button
+                class="mobile-menu"
+                id="mobileMenu"
+                type="button"
+                aria-label="Hide sidebar"
+                aria-controls="sidebar"
+                aria-expanded="true"
+                title="Hide sidebar">
+                <i data-lucide="menu" aria-hidden="true"></i>
+            </button>
+
+
+            <div class="search-container">
+
+                <span class="search-icon"><i data-lucide="search" aria-hidden="true"></i></span>
+
+                <input
+                    type="text"
+                    id="globalSearch"
+                    placeholder="Search my tours, guests, bookings..."
+                >
+
+            </div>
+
+
+            <div class="topbar-right">
+
+                <button
+                    class="notification-button"
+                    id="notificationButton">
+
+                    <i data-lucide="bell" aria-hidden="true"></i>
+
+                    <span>
+                        2
+                    </span>
+
+                </button>
+
+
+                <div class="admin-profile">
+
+                    <div class="admin-avatar">
+                        J
+                    </div>
+
+                    <div class="admin-profile-info">
+
+                        <strong>
+                            Jonas Reyes
+                        </strong>
+
+                        <small>
+                            Staff
+                        </small>
+
+                    </div>
+
+                    <span class="dropdown-arrow">
+                        ▾
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================
+             DASHBOARD CONTENT
+        ========================== -->
+
+        <section class="dashboard-content">
+
+
+            <!-- WELCOME -->
+
+            <section class="welcome-banner">
+
+                <div class="welcome-overlay">
+
+                    <div class="welcome-content">
+
+                        <span class="welcome-label">
+                            STAFF DASHBOARD
+                        </span>
+                        <h1>
+                            Welcome back, Jonas
+                        </h1>
+                        <p>
+                            Here's your schedule and assigned tours
+                            for today. Have a great trip!
+                        </p>
+                        <div class="welcome-date">
+                            <i data-lucide="calendar-days" aria-hidden="true"></i>
+                            <span id="currentDate"></span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 STATISTICS
+            ========================== -->
+
+            <section class="stats-grid">
+
+
+                <div class="stat-card blue-card">
+
+                    <div class="stat-icon">
+                        <i data-lucide="map" aria-hidden="true"></i>
+                    </div>
+
+                    <div class="stat-content">
+
+                        <span>
+                            Today's Tours
+                        </span>
+
+                        <h2>
+                            8
+                        </h2>
+
+                        <small class="positive">
+                            ↑ 2 this week
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card yellow-card">
+
+                    <div class="stat-icon">
+                        <i data-lucide="clock-3" aria-hidden="true"></i>
+                    </div>
+
+                    <div class="stat-content">
+
+                        <span>
+                            Pending Bookings
+                        </span>
+                        <h2>
+                            3
+                        </h2>
+
+                        <small>
+                            Tours starting today
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card green-card">
+
+                    <div class="stat-icon">
+                        <i data-lucide="check" aria-hidden="true"></i>
+                    </div>
+
+                    <div class="stat-content">
+
+                        <span>
+                            Guests Today
+                        </span>
+
+                        <h2>
+                            19
+                        </h2>
+
+                        <small>
+                            Across all tours
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card purple-card">
+
+                    <div class="stat-icon">
+                        <i data-lucide="star" aria-hidden="true"></i>
+                    </div>
+
+                    <div class="stat-content">
+
+                        <span>
+                            My Rating
+                        </span>
+
+                        <h2>
+                            4.9
+                        </h2>
+
+                        <small>
+                            Based on 47 reviews
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 MAIN DASHBOARD GRID
+            ========================== -->
+
+            <section class="dashboard-grid">
+
+
+                <!-- LEFT -->
+
+                <div class="dashboard-left">
+
+
+                    <!-- TODAY'S ASSIGNED TOURS -->
+
+                    <div class="dashboard-card">
+
+                        <div class="card-header">
+
+                            <div>
+
+                                <h2>
+                                    Today's Assigned Tours
+                                </h2>
+
+                                <p>
+                                    Your tours scheduled for today
+                                </p>
+
+                            </div>
+
+                            <a href="tour-packages.html">
+                                View All
+                            </a>
+
+                        </div>
+
+
+                        <div class="table-wrapper">
+
+                            <table id="toursTable">
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>
+                                            Tour ID
+                                        </th>
+
+                                        <th>
+                                            Package
+                                        </th>
+
+                                        <th>
+                                            Guests
+                                        </th>
+
+                                        <th>
+                                            Time
+                                        </th>
+
+                                        <th>
+                                            Meeting Point
+                                        </th>
+
+                                        <th>
+                                            Status
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+
+                                <tbody>
+
+                                    <tr>
+
+                                        <td>
+                                            <strong>
+                                                TR-0091
+                                            </strong>
+                                        </td>
+
+                                        <td>
+                                            Oslob-Simala
+                                        </td>
+
+                                        <td>
+                                            4 pax
+                                        </td>
+
+                                        <td>
+                                            06:00 AM
+                                        </td>
+
+                                        <td>
+                                            Hotel Lobby
+                                        </td>
+
+                                        <td>
+                                            <span class="status completed">
+                                                Departed
+                                            </span>
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr>
+
+                                        <td>
+                                            <strong>
+                                                TR-0092
+                                            </strong>
+                                        </td>
+
+                                        <td>
+                                            City & Uphill
+                                        </td>
+
+                                        <td>
+                                            5 pax
+                                        </td>
+
+                                        <td>
+                                            08:00 AM
+                                        </td>
+
+                                        <td>
+                                            Ayala Terminal
+                                        </td>
+
+                                        <td>
+                                            <span class="status ongoing">
+                                                Ongoing
+                                            </span>
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr>
+
+                                        <td>
+                                            <strong>
+                                                TR-0093
+                                            </strong>
+                                        </td>
+
+                                        <td>
+                                            Cebu-Bohol
+                                        </td>
+
+                                        <td>
+                                            10 pax
+                                        </td>
+
+                                        <td>
+                                            10:00 AM
+                                        </td>
+
+                                        <td>
+                                            Pier 1
+                                        </td>
+
+                                        <td>
+                                            <span class="status pending">
+                                                Upcoming
+                                            </span>
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- UPCOMING ASSIGNMENTS -->
+
+                    <div class="dashboard-card">
+
+                        <div class="card-header">
+
+                            <div>
+
+                                <h2>
+                                    Upcoming Assignments
+                                </h2>
+
+                                <p>
+                                    Tours assigned to you this week
+                                </p>
+
+                            </div>
+
+                            <a href="bookings.html">
+                                View Schedule
+                            </a>
+
+                        </div>
+
+
+                        <div class="package-list">
+
+
+                            <div class="package-row">
+
+                                <div class="package-image">
+                                    <i data-lucide="waves" aria-hidden="true"></i>
+                                </div>
+
+                                <div class="package-info">
+
+                                    <strong>
+                                        Moalboal-Badian
+                                    </strong>
+
+                                    <span>
+                                        Oct 05, 2026 · 7:00 AM · 6 pax
+                                    </span>
+
+                                </div>
+
+                                <div class="package-price">
+                                    Day Tour
+                                </div>
+
+                                <span class="package-status active">
+                                    Confirmed
+                                </span>
+
+                                <button class="edit-button">
+                                    Details
+                                </button>
+
+                            </div>
+
+
+                            <div class="package-row">
+
+                                <div class="package-image">
+                                    <i data-lucide="palmtree" aria-hidden="true"></i>
+                                </div>
+
+                                <div class="package-info">
+
+                                    <strong>
+                                        3D2N Cebu Tour
+                                    </strong>
+
+                                    <span>
+                                        Oct 08, 2026 · 8:00 AM · 4 pax
+                                    </span>
+
+                                </div>
+
+                                <div class="package-price">
+                                    3D / 2N
+                                </div>
+
+                                <span class="package-status active">
+                                    Confirmed
+                                </span>
+
+                                <button class="edit-button">
+                                    Details
+                                </button>
+
+                            </div>
+
+
+                            <div class="package-row">
+
+                                <div class="package-image">
+                                    <i data-lucide="map-pin" aria-hidden="true"></i>
+                                </div>
+
+                                <div class="package-info">
+
+                                    <strong>
+                                        Oslob-Simala
+                                    </strong>
+
+                                    <span>
+                                        Oct 12, 2026 · 5:30 AM · 8 pax
+                                    </span>
+
+                                </div>
+
+                                <div class="package-price">
+                                    Day Tour
+                                </div>
+
+                                <span class="package-status active">
+                                    Confirmed
+                                </span>
+
+                                <button class="edit-button">
+                                    Details
+                                </button>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+<!-- RIGHT -->
+
+<div class="dashboard-right">
+
+
+    <!-- QUICK ACTIONS -->
+
+    <div class="dashboard-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>
+                    Quick Actions
+                </h2>
+
+                <p>
+                    Common staff tasks
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="quick-actions">
+
+
+            <button
+                class="quick-action"
+                data-action="View Bookings">
+
+                <span class="quick-action-icon">
+                    <i data-lucide="calendar-check" aria-hidden="true"></i>
+                </span>
+
+                <small>
+                    View Bookings
+                </small>
+
+            </button>
+
+
+            <button
+                class="quick-action"
+                data-action="Add Customer">
+
+                <span class="quick-action-icon">
+                    <i data-lucide="user-round-plus" aria-hidden="true"></i>
+                </span>
+
+                <small>
+                    Add Customer
+                </small>
+
+            </button>
+
+
+            <button
+                class="quick-action"
+                data-action="Assign Tour Guide">
+
+                <span class="quick-action-icon">
+                    <i data-lucide="user-cog" aria-hidden="true"></i>
+                </span>
+
+                <small>
+                    Assign Guide
+                </small>
+
+            </button>
+
+
+            <button
+                class="quick-action"
+                data-action="View Reviews">
+
+                <span class="quick-action-icon">
+                    <i data-lucide="star" aria-hidden="true"></i>
+                </span>
+
+                <small>
+                    View Reviews
+                </small>
+
+            </button>
+
+
+            <button
+                class="quick-action"
+                data-action="Upload Photos">
+
+                <span class="quick-action-icon">
+                    <i data-lucide="image-plus" aria-hidden="true"></i>
+                </span>
+
+                <small>
+                    Upload Photos
+                </small>
+
+            </button>
+
+
+            <button
+                class="quick-action"
+                data-action="Check Messages">
+
+                <span class="quick-action-icon">
+                    <i data-lucide="message-square" aria-hidden="true"></i>
+                </span>
+
+                <small>
+                    Messages
+                </small>
+
+            </button>
+
+        </div>
+
+    </div>
+                    <!-- RECENT GUEST FEEDBACK -->
+
+                    <div class="dashboard-card">
+
+                        <div class="card-header">
+
+                            <div>
+
+                                <h2>
+                                    Recent Guest Feedback
+                                </h2>
+
+                                <p>
+                                    What guests are saying about you
+                                </p>
+
+                            </div>
+
+                            <a href="reviews.html">
+                                View All
+                            </a>
+
+                        </div>
+
+
+                        <div class="review">
+
+                            <div class="review-avatar">
+                                M
+                            </div>
+
+                            <div class="review-content">
+
+                                <div class="review-top">
+
+                                    <strong>
+                                        Maria Santos
+                                    </strong>
+
+                                    <span>
+                                        ★★★★★
+                                    </span>
+
+                                </div>
+
+                                <p>
+                                    "Jonas was very accommodating
+                                    and made our Cebu tour amazing!"
+                                </p>
+
+                                <small>
+                                    2 hours ago
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="review">
+
+                            <div class="review-avatar">
+                                J
+                            </div>
+
+                            <div class="review-content">
+
+                                <div class="review-top">
+
+                                    <strong>
+                                        James Lee
+                                    </strong>
+
+                                    <span>
+                                        ★★★★★
+                                    </span>
+
+                                </div>
+
+                                <p>
+                                    "Very knowledgeable guide.
+                                    Highly recommended!"
+                                </p>
+
+                                <small>
+                                    Yesterday
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="review">
+
+                            <div class="review-avatar">
+                                A
+                            </div>
+
+                            <div class="review-content">
+
+                                <div class="review-top">
+
+                                    <strong>
+                                        Angela Cruz
+                                    </strong>
+
+                                    <span>
+                                        ★★★★☆
+                                    </span>
+
+                                </div>
+
+                                <p>
+                                    "Smooth tour and friendly service."
+                                </p>
+
+                                <small>
+                                    2 days ago
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- TASK CHECKLIST -->
+
+                    <div class="dashboard-card">
+
+                        <div class="card-header">
+
+                            <div>
+
+                                <h2>
+                                    My Tasks
+                                </h2>
+
+                                <p>
+                                    Today's checklist
+                                </p>
+
+                            </div>
+
+                            <span class="tour-count">
+                                3 Pending
+                            </span>
+
+                        </div>
+
+
+                        <div class="today-tour">
+
+                            <div class="tour-time">
+                                06:00
+                                <small>AM</small>
+                            </div>
+
+                            <div class="tour-details">
+
+                                <strong>
+                                    Guest check-in
+                                </strong>
+
+                                <span>
+                                    Oslob-Simala · 4 pax
+                                </span>
+
+                            </div>
+
+                            <span class="tour-status completed">
+                                Done
+                            </span>
+
+                        </div>
+
+
+                        <div class="today-tour">
+
+                            <div class="tour-time">
+                                08:00
+                                <small>AM</small>
+                            </div>
+
+                            <div class="tour-details">
+
+                                <strong>
+                                    Submit tour report
+                                </strong>
+
+                                <span>
+                                    City & Uphill
+                                </span>
+
+                            </div>
+
+                            <span class="tour-status ongoing">
+                                In Progress
+                            </span>
+
+                        </div>
+
+
+                        <div class="today-tour">
+
+                            <div class="tour-time">
+                                10:00
+                                <small>AM</small>
+                            </div>
+
+                            <div class="tour-details">
+
+                                <strong>
+                                    Upload tour photos
+                                </strong>
+
+                                <span>
+                                    Cebu-Bohol
+                                </span>
+
+                            </div>
+
+                            <span class="tour-status upcoming">
+                                Pending
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+
+    <div class="modal-backdrop" id="actionModalBackdrop" hidden aria-hidden="true">
+        <section class="modal modal-sm" role="dialog" aria-modal="true" aria-labelledby="actionModalTitle" aria-describedby="actionModalSubtitle">
+            <header class="modal-header">
+                <div>
+                    <h2 id="actionModalTitle">Action</h2>
+                    <p id="actionModalSubtitle"></p>
+                </div>
+                <button class="modal-close" id="actionModalClose" type="button" aria-label="Close dialog">
+                    <i data-lucide="x" aria-hidden="true"></i>
+                </button>
+            </header>
+            <div class="modal-body" id="actionModalBody"></div>
+            <footer class="modal-footer">
+                <button class="secondary-button" id="actionModalCancel" type="button">Cancel</button>
+                <button class="primary-button" id="actionModalConfirm" type="button">Continue</button>
+            </footer>
+        </section>
+    </div>
+    <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="false"></div>
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script src="js/script.js"></script>
+
+</body>
+</html>
