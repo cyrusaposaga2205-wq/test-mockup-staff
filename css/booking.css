@@ -258,15 +258,20 @@ body.sidebar-hidden .sidebar { transform: translateX(-100%); }
 }
 
 .logout-button {
+    display: flex;
     width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 9px;
     border: 0;
+    border-radius: 7px;
     background: rgba(255,255,255,0.08);
     color: #d9e6f2;
-    padding: 9px;
-    border-radius: 7px;
     cursor: pointer;
 }
 
+.logout-button svg { width: 16px; height: 16px; }
 .logout-button:hover { background: rgba(255,255,255,0.15); }
 
 
@@ -725,7 +730,7 @@ td strong { color: var(--text); }
         display: none;
     }
 
-    .sidebar-logo img { width: 50px; }
+    .sidebar-logo img { width: 110px; }
 
     .nav-link {
         justify-content: center;
@@ -858,4 +863,3 @@ td strong { color: var(--text); }
         .booking-details-modal .modal-body { overflow: visible; }
         .booking-details-modal .modal-close, .booking-modal-footer { display: none !important; }
     }
-}

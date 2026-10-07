@@ -404,3 +404,60 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 });
+
+/* =========================
+   TINYMCE RICH TEXT EDITORS
+========================== */
+function initRichTextEditors() {
+    if (window.tinymce) {
+        tinymce.init({
+            selector: '#termsEditor, #privacyEditor',
+            height: 280,
+            menubar: false,
+            plugins: 'lists link code preview wordcount',
+            toolbar: 'undo redo | blocks | bold italic underline | alignleft aligncenter alignright | bullist numlist | link code preview',
+            content_style: 'body { font-family: "Poppins", sans-serif; font-size: 13px; color: #18324c; }',
+            setup: function (editor) {
+                editor.on('change', function () {
+                    editor.save(); // Sync editor content back to standard textarea
+                });
+            }
+        });
+    }
+}
+
+// Call on page load
+initRichTextEditors();
+
+/* =========================
+   SAVE BUSINESS SETTINGS
+========================== */
+document.getElementById("saveBusinessSettingsBtn")?.addEventListener("click", () => {
+    // Save TinyMCE content to textareas
+    if (window.tinymce) {
+        tinymce.triggerSave();
+    }
+
+    const businessData = {
+        name: document.getElementById("businessName")?.value,
+        email: document.getElementById("businessEmail")?.value,
+        phone: document.getElementById("businessPhone")?.value,
+        address: document.getElementById("businessAddress")?.value,
+        terms: document.getElementById("termsEditor")?.value,
+        privacy: document.getElementById("privacyEditor")?.value
+    };
+
+    console.log("Saved Business Info:", businessData);
+    showToast("Business information and policies updated successfully!", "success");
+});
+
+ /* =========================
+       LOGOUT
+    ========================== */
+
+    document.getElementById("logoutButton")
+        ?.addEventListener("click", () => {
+            if (confirm("Are you sure you want to logout?")) {
+                showToast("Logging out...", "success");
+            }
+        });

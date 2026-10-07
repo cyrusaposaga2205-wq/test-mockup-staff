@@ -7,6 +7,11 @@
     <title>Settings | Uncle Ron's Travel and Tours</title>
 
     <link rel="stylesheet" href="css/settings.css">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="48x48" href="images/favicon-48.png">
+
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
@@ -21,7 +26,7 @@
         <div class="sidebar-logo">
 
             <img
-                src="images/logo.png"
+                src="images/Uncle_rons_logo-removebg-preview.png"
                 alt="Uncle Ron's Travel and Tours"
             >
 
@@ -55,10 +60,10 @@
                 </span>
             </a>
 
-            <a href="customers.html" class="nav-link">
+            <!-- <a href="customers.html" class="nav-link">
                 <span class="icon"><i data-lucide="users" aria-hidden="true"></i></span>
                 <span>Customers</span>
-            </a>
+            </a> -->
 
             <a href="reviews.html" class="nav-link">
                 <span class="icon"><i data-lucide="star" aria-hidden="true"></i></span>
@@ -98,14 +103,10 @@
             </div>
 
 
-            <button
-                class="logout-button"
-                id="logoutButton">
-
-                <span class="logout-icon" aria-hidden="true"><i data-lucide="log-out"></i></span>
-                <span class="logout-label">Logout</span>
-
-            </button>
+            <a href="login.html" class="logout-button" id="logoutButton">
+                <i data-lucide="log-out" aria-hidden="true"></i>
+                <span>Logout</span>
+            </a>
 
         </div>
 
@@ -216,14 +217,14 @@
                 </div>
 
 
-                <button
+                <!-- <button
                     class="primary-button"
                     id="saveAllButton">
 
                     <i data-lucide="save" aria-hidden="true"></i>
                     Save Changes
 
-                </button>
+                </button> -->
 
             </section>
 
@@ -289,7 +290,7 @@
                     </button>
 
 
-                    <button
+                    <!-- <button
                         class="settings-nav-item"
                         data-section="appearance">
 
@@ -299,7 +300,7 @@
                             Appearance
                         </span>
 
-                    </button>
+                    </button> -->
 
                 </aside>
 
@@ -364,388 +365,223 @@
 
                         <div class="form-grid">
 
-                            <div class="form-group">
+        <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input
+                type="text"
+                id="firstName"
+                value="Jonas"
+                readonly
+            >
+        </div>
 
-                                <label for="firstName">
-                                    First Name
-                                </label>
+        <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input
+                type="text"
+                id="lastName"
+                value="Reyes"
+                readonly
+            >
+        </div>
 
-                                <input
-                                    type="text"
-                                    id="firstName"
-                                    value="Jonas"
-                                >
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input
+                type="email"
+                id="email"
+                value="staff1@unclerons.com"
+                readonly
+            >
+        </div>
 
-                            </div>
+        <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input
+                type="tel"
+                id="phone"
+                value="+63 917 555 0100"
+                readonly
+            >
+        </div>
 
+        <div class="form-group full">
+            <label for="bio">Bio</label>
+            <textarea
+                id="bio"
+                rows="3"
+                readonly
+                placeholder="No bio provided."></textarea>
+        </div>
 
-                            <div class="form-group">
-
-                                <label for="lastName">
-                                    Last Name
-                                </label>
-
-                                <input
-                                    type="text"
-                                    id="lastName"
-                                    value="Reyes"
-                                    placeholder="Enter last name"
-                                >
-
-                            </div>
-
-
-                            <div class="form-group">
-
-                                <label for="email">
-                                    Email Address
-                                </label>
-
-                                <input
-                                    type="email"
-                                    id="email"
-                                    value="admin@unclerons.com"
-                                >
-
-                            </div>
-
-
-                            <div class="form-group">
-
-                                <label for="phone">
-                                    Phone Number
-                                </label>
-
-                                <input
-                                    type="tel"
-                                    id="phone"
-                                    value="+63 917 555 0100"
-                                >
-
-                            </div>
-
-
-                            <div class="form-group full">
-
-                                <label for="bio">
-                                    Bio
-                                </label>
-
-                                <textarea
-                                    id="bio"
-                                    rows="3"
-                                    placeholder="Tell us a bit about yourself..."></textarea>
-
-                            </div>
-
-                        </div>
+    </div>
 
                     </section>
 
 
-                    <!-- BUSINESS INFO -->
+                    <!-- BUSINESS INFO SECTION IN settings.html -->
+<section class="settings-section" id="business">
 
-                    <section
-                        class="settings-section"
-                        id="business">
+    <div class="section-header">
+        <h2>Business Information & Policies</h2>
+        <p>Update company contact details, legal terms, and landing page content.</p>
+    </div>
 
-                        <div class="section-header">
+    <div class="form-grid">
 
-                            <h2>
-                                Business Information
-                            </h2>
+        <div class="form-group full">
+            <label for="businessName">Business Name</label>
+            <input type="text" id="businessName" value="Uncle Ron's Travel and Tours">
+        </div>
 
-                            <p>
-                                Details that appear on your booking confirmations and receipts.
-                            </p>
+        <div class="form-group">
+            <label for="businessEmail">Business Email</label>
+            <input type="email" id="businessEmail" value="hello@unclerons.com">
+        </div>
 
-                        </div>
+        <div class="form-group">
+            <label for="businessPhone">Business Phone</label>
+            <input type="tel" id="businessPhone" value="+63 32 555 0100">
+        </div>
 
+        <div class="form-group full">
+            <label for="businessAddress">Address</label>
+            <input type="text" id="businessAddress" value="123 Osmeña Blvd, Cebu City, Philippines">
+        </div>
 
-                        <div class="form-grid">
+        <div class="form-group">
+            <label for="currency">Currency</label>
+            <select id="currency">
+                <option value="PHP" selected>PHP — Philippine Peso (₱)</option>
+                <option value="USD">USD — US Dollar ($)</option>
+            </select>
+        </div>
 
-                            <div class="form-group full">
+        <div class="form-group">
+            <label for="timezone">Timezone</label>
+            <select id="timezone">
+                <option value="Asia/Manila" selected>Asia/Manila (GMT+8)</option>
+            </select>
+        </div>
 
-                                <label for="businessName">
-                                    Business Name
-                                </label>
+        <!-- RICH TEXT EDITOR FOR TERMS & CONDITIONS -->
+        <div class="form-group full" style="margin-top: 15px;">
+            <label for="termsEditor">Terms & Conditions</label>
+            <textarea id="termsEditor">
+                <h3>1. Booking & Cancellation Policy</h3>
+                <p>Reservations require a 50% initial deposit. Cancellations made 7 days prior to tour date receive a 100% refund.</p>
+                <h3>2. Safety & Liability</h3>
+                <p>Guests must follow guide instructions during water activities (e.g., Canyoneering, Oslob Whale Shark viewing).</p>
+            </textarea>
+        </div>
 
-                                <input
-                                    type="text"
-                                    id="businessName"
-                                    value="Uncle Ron's Travel and Tours"
-                                >
+        <!-- RICH TEXT EDITOR FOR PRIVACY POLICY -->
+        <div class="form-group full" style="margin-top: 15px;">
+            <label for="privacyEditor">Privacy & Refund Policy</label>
+            <textarea id="privacyEditor">
+                <p>We respect your privacy and process customer booking data strictly in compliance with data privacy regulations.</p>
+            </textarea>
+        </div>
 
-                            </div>
+    </div>
 
+    <div class="section-actions">
+        <button class="primary-button" id="saveBusinessSettingsBtn">
+            <i data-lucide="save"></i> Save Business Info
+        </button>
+    </div>
 
-                            <div class="form-group">
-
-                                <label for="businessEmail">
-                                    Business Email
-                                </label>
-
-                                <input
-                                    type="email"
-                                    id="businessEmail"
-                                    value="hello@unclerons.com"
-                                >
-
-                            </div>
-
-
-                            <div class="form-group">
-
-                                <label for="businessPhone">
-                                    Business Phone
-                                </label>
-
-                                <input
-                                    type="tel"
-                                    id="businessPhone"
-                                    value="+63 32 555 0100"
-                                >
-
-                            </div>
-
-
-                            <div class="form-group full">
-
-                                <label for="businessAddress">
-                                    Address
-                                </label>
-
-                                <input
-                                    type="text"
-                                    id="businessAddress"
-                                    value="123 Osmeña Blvd, Cebu City, Philippines"
-                                >
-
-                            </div>
+</section>
 
 
-                            <div class="form-group">
+                 <!-- =========================
+                         NOTIFICATIONS
+                    ========================== -->
 
-                                <label for="currency">
-                                    Currency
-                                </label>
-
-                                <select id="currency">
-
-                                    <option value="PHP" selected>
-                                        PHP — Philippine Peso (₱)
-                                    </option>
-
-                                    <option value="USD">
-                                        USD — US Dollar ($)
-                                    </option>
-
-                                    <option value="EUR">
-                                        EUR — Euro (€)
-                                    </option>
-
-                                </select>
-
-                            </div>
-
-
-                            <div class="form-group">
-
-                                <label for="timezone">
-                                    Timezone
-                                </label>
-
-                                <select id="timezone">
-
-                                    <option value="Asia/Manila" selected>
-                                        Asia/Manila (GMT+8)
-                                    </option>
-
-                                    <option value="Asia/Singapore">
-                                        Asia/Singapore (GMT+8)
-                                    </option>
-
-                                    <option value="Asia/Tokyo">
-                                        Asia/Tokyo (GMT+9)
-                                    </option>
-
-                                </select>
-
-                            </div>
-
-                        </div>
-
-                    </section>
-
-
-                    <!-- NOTIFICATIONS -->
-
-                    <section
-                        class="settings-section"
-                        id="notifications">
+                    <section class="settings-section" id="notifications" aria-labelledby="notificationsHeading">
 
                         <div class="section-header">
-
-                            <h2>
-                                Notifications
-                            </h2>
-
-                            <p>
-                                Choose which alerts you'd like to receive.
-                            </p>
-
+                            <h2 id="notificationsHeading">Notifications</h2>
+                            <p>Choose which alerts you'd like to receive.</p>
                         </div>
 
 
                         <div class="toggle-list">
 
-
                             <div class="toggle-row">
-
                                 <div class="toggle-info">
-
-                                    <strong>
-                                        New Booking Alerts
-                                    </strong>
-
-                                    <small>
-                                        Get notified when a new booking is made.
-                                    </small>
-
+                                    <strong>New Booking Alerts</strong>
+                                    <small>Get notified when a new booking is made.</small>
                                 </div>
-
                                 <label class="switch">
-
-                                    <input
-                                        type="checkbox"
-                                        checked
-                                        data-setting="notifyNewBooking"
-                                    >
-
+                                    <input type="checkbox" checked data-setting="notifyNewBooking">
                                     <span class="slider"></span>
-
                                 </label>
-
                             </div>
 
 
                             <div class="toggle-row">
-
                                 <div class="toggle-info">
-
-                                    <strong>
-                                        New Reviews
-                                    </strong>
-
-                                    <small>
-                                        Receive notifications when a customer leaves a review.
-                                    </small>
-
+                                    <strong>New Reviews</strong>
+                                    <small>Receive notifications when a customer leaves a review.</small>
                                 </div>
-
                                 <label class="switch">
-
-                                    <input
-                                        type="checkbox"
-                                        checked
-                                        data-setting="notifyNewReview"
-                                    >
-
+                                    <input type="checkbox" checked data-setting="notifyNewReview">
                                     <span class="slider"></span>
-
                                 </label>
-
                             </div>
 
 
                             <div class="toggle-row">
-
                                 <div class="toggle-info">
-
-                                    <strong>
-                                        Payment Confirmations
-                                    </strong>
-
-                                    <small>
-                                        Alert when a customer completes a payment.
-                                    </small>
-
+                                    <strong>Payment Confirmations</strong>
+                                    <small>Alert when a customer completes a payment.</small>
                                 </div>
-
                                 <label class="switch">
-
-                                    <input
-                                        type="checkbox"
-                                        checked
-                                        data-setting="notifyPayment"
-                                    >
-
+                                    <input type="checkbox" checked data-setting="notifyPayment">
                                     <span class="slider"></span>
-
                                 </label>
-
                             </div>
 
 
                             <div class="toggle-row">
-
                                 <div class="toggle-info">
-
-                                    <strong>
-                                        Weekly Summary Email
-                                    </strong>
-
-                                    <small>
-                                        Get a weekly report of your bookings and revenue.
-                                    </small>
-
+                                    <strong>Weekly Summary Email</strong>
+                                    <small>Get a weekly report of your bookings and revenue.</small>
                                 </div>
-
                                 <label class="switch">
-
-                                    <input
-                                        type="checkbox"
-                                        data-setting="notifyWeekly"
-                                    >
-
+                                    <input type="checkbox" data-setting="notifyWeekly">
                                     <span class="slider"></span>
-
                                 </label>
-
                             </div>
 
 
                             <div class="toggle-row">
-
                                 <div class="toggle-info">
-
-                                    <strong>
-                                        SMS Alerts
-                                    </strong>
-
-                                    <small>
-                                        Receive urgent alerts via text message.
-                                    </small>
-
+                                    <strong>SMS Alerts</strong>
+                                    <small>Receive urgent alerts via text message.</small>
                                 </div>
-
                                 <label class="switch">
-
-                                    <input
-                                        type="checkbox"
-                                        data-setting="notifySms"
-                                    >
-
+                                    <input type="checkbox" data-setting="notifySms">
                                     <span class="slider"></span>
-
                                 </label>
+                            </div>
 
+
+                            <div class="toggle-row">
+                                <div class="toggle-info">
+                                    <strong>Push Notifications</strong>
+                                    <small>Get browser push notifications for real-time updates.</small>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" checked data-setting="notifyPush">
+                                    <span class="slider"></span>
+                                </label>
                             </div>
 
                         </div>
 
                     </section>
-
 
                     <!-- SECURITY -->
 
@@ -891,7 +727,7 @@
 
                     <!-- APPEARANCE -->
 
-                    <section
+                    <!-- <section
                         class="settings-section"
                         id="appearance">
 
@@ -978,10 +814,10 @@
 
                             </div>
 
-                        </div>
+                        </div> -->
 
 
-                        <div class="appearance-block">
+                        <!-- <div class="appearance-block">
 
                             <strong>
                                 Accent Color
@@ -1030,9 +866,9 @@
 
                             </div>
 
-                        </div>
+                        </div> -->
 
-                    </section>
+                    <!-- </section> -->
 
                 </div>
 

@@ -6,7 +6,11 @@
 
     <title>Reviews | Uncle Ron's Travel and Tours</title>
 
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="48x48" href="images/favicon-48.png">
+
     <link rel="stylesheet" href="css/reviews.css">
+
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
@@ -21,7 +25,7 @@
         <div class="sidebar-logo">
 
             <img
-                src="images/logo.png"
+                src="images/Uncle_rons_logo-removebg-preview.png"
                 alt="Uncle Ron's Travel and Tours"
             >
 
@@ -55,10 +59,10 @@
                 </span>
             </a>
 
-            <a href="customers.html" class="nav-link">
+            <!-- <a href="customers.html" class="nav-link">
                 <span class="icon"><i data-lucide="users" aria-hidden="true"></i></span>
                 <span>Customers</span>
-            </a>
+            </a> -->
 
             <a href="reviews.html" class="nav-link active" aria-current="page">
                 <span class="icon"><i data-lucide="star" aria-hidden="true"></i></span>
@@ -98,14 +102,10 @@
             </div>
 
 
-            <button
-                class="logout-button"
-                id="logoutButton">
-
-                <span class="logout-icon" aria-hidden="true"><i data-lucide="log-out"></i></span>
-                <span class="logout-label">Logout</span>
-
-            </button>
+           <a href="login.html" class="logout-button" id="logoutButton">
+                <i data-lucide="log-out" aria-hidden="true"></i>
+                <span>Logout</span>
+            </a>
 
         </div>
 
@@ -483,6 +483,11 @@
                             <button class="text-button reply-button">
                                 <i data-lucide="reply" aria-hidden="true"></i>
                                 Reply
+                            </button>
+
+                             <button class="text-button reply-button">
+                                <i data-lucide="reply" aria-hidden="true"></i>
+                                Add to landing page
                             </button>
 
                             <button class="icon-button delete-button" title="Delete">

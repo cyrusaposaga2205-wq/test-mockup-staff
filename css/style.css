@@ -318,27 +318,21 @@ body.modal-open { overflow: hidden; }
 
 
 .logout-button {
+    display: flex;
     width: 100%;
-
-    border: 0;
-
-    background:
-        rgba(255,255,255,0.08);
-
-    color: #d9e6f2;
-
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     padding: 9px;
-
+    border: 0;
     border-radius: 7px;
-
+    background: rgba(255,255,255,0.08);
+    color: #d9e6f2;
     cursor: pointer;
 }
 
-
-.logout-button:hover {
-    background:
-        rgba(255,255,255,0.15);
-}
+.logout-button svg { width: 16px; height: 16px; }
+.logout-button:hover { background: rgba(255,255,255,0.15); }
 
 
 /* =========================

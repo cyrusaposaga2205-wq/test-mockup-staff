@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login Portal | Uncle Ron's Travel & Tours</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="48x48" href="images/favicon-48.png">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body class="portal-body">
+
+    <!-- Topbar -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <span><i class="fa-solid fa-location-dot"></i> Cebu City, Philippines</span>
+            <span><i class="fa-solid fa-phone"></i> +63 912 345 6789</span>
+            <span><i class="fa-solid fa-envelope"></i> info@uncleronstravelandtours.com</span>
+        </div>
+        <div class="topbar-right">
+            <span class="follow-label">Follow Us:</span>
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="#"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+    </div>
+
+    <!-- Header / Navbar -->
+    <header class="header-transparent">
+        <div class="container navbar">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/Uncle_rons_logo-removebg-preview.png" alt="Uncle Ron's Logo">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Portal Landing Hero Section -->
+    <section class="portal-hero">
+        <div class="overlay"></div>
+
+        <div class="container portal-hero-container">
+
+            <!-- Hero Text Side -->
+            <div class="portal-hero-text">
+                <span class="sub-title">Internal Operations Portal</span>
+                <h1>WORKFORCE & MANAGEMENT ACCESS</h1>
+                <p>Welcome back! Sign in to manage bookings, adjust tour packages, review customer feedback, and generate real-time reports.</p>
+
+                <div class="portal-features-list">
+                    <div class="portal-feature-item">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <div>
+                            <strong>Role-Based Access Control</strong>
+                            <span>Secure operational workspace for Staff and System Administrators.</span>
+                        </div>
+                    </div>
+                    <div class="portal-feature-item">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <div>
+                            <strong>Real-time Dashboard</strong>
+                            <span>Track guest bookings, payment statuses, and daily tour schedules.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Login Card Side -->
+            <div class="portal-card-wrapper">
+                <div class="portal-card">
+
+                    <div class="portal-card-header">
+                        <center><h2>Portal Sign In</h2></center>
+                        <center><p>Select your user account role to log in</p></center>
+                    </div>
+
+                    <!-- Role Selector Pills -->
+                    <div class="portal-role-tabs">
+                        <button type="button" class="role-tab active" data-role="staff" onclick="switchRole('staff')">
+                            <i class="fa-solid fa-user-gear"></i> Staff
+                        </button>
+                        <button type="button" class="role-tab" data-role="admin" onclick="switchRole('admin')">
+                            <i class="fa-solid fa-user-shield"></i> Admin
+                        </button>
+                    </div>
+
+                    <!--Sample Account Banner (Clickable to autofill)-->
+                    <!-- <div class="demo-accounts-box" id="demoAccountsBox" onclick="autofillDemoCredentials()">
+                        <div class="demo-badge"><i class="fa-solid fa-key"></i> Demo Credentials</div>
+                        <p id="demoText">Click to autofill Staff account details</p>
+                        <small id="demoAccountInfo"><b>Email:</b> staff1@unclerons.com | <b>Password:</b> staff123</small>
+                    </div> -->
+
+                    <!-- Form -->
+                    <form class="portal-login-form" id="portalLoginForm" onsubmit="handlePortalLogin(event)">
+                        
+                        <div class="form-group">
+                            <label for="portalEmail">Work Email</label>
+                            <div class="input-with-icon">
+                                <i class="fa-solid fa-envelope"></i>
+                                <input type="email" id="portalEmail" placeholder="e.g. staff1@unclerons.com" value="staff1@unclerons.com" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="portalPassword">Password</label>
+                            <div class="input-with-icon">
+                                <i class="fa-solid fa-lock"></i>
+                                <input type="password" id="portalPassword" placeholder="Enter password" value="staff123" required>
+                                <button type="button" class="password-toggle" onclick="togglePasswordVisibility()">
+                                    <i class="fa-solid fa-eye" id="eyeIcon"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-extras">
+                            <label class="remember-me">
+                                <input type="checkbox" id="rememberMe" checked> Remember me
+                            </label>
+                            <a href="#" class="forgot-link">Forgot password?</a>
+                        </div>
+
+                        <button type="submit" class="portal-submit-btn" id="loginSubmitBtn">
+                            Sign In<i class="fa-solid fa-arrow-right"></i>
+                        </button>
+
+                    </form>
+
+                    <div class="portal-card-footer">
+                        <i class="fa-solid fa-circle-info"></i> For account access or password resets, contact system administration.
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-bottom">
+            <p>© 2026 Uncle Ron's Travel and Tours. Staff & Admin System Operations.</p>
+        </div>
+    </footer>
+
+    <!-- Interactive Script -->
+    <script>
+        let selectedRole = 'staff';
+
+        const accounts = {
+            staff: {
+                email: 'staff1@unclerons.com',
+                password: 'staff123',
+                redirect: 'index.html' // Dashboard
+            }
+            
+        };
+
+        function switchRole(role) {
+            selectedRole = role;
+            
+            // Update Tab UI
+            document.querySelectorAll('.role-tab').forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.role === role);
+            });
+
+            const emailInput = document.getElementById('portalEmail');
+            const passInput = document.getElementById('portalPassword');
+            const submitBtn = document.getElementById('loginSubmitBtn');
+            const demoText = document.getElementById('demoText');
+            const demoAccountInfo = document.getElementById('demoAccountInfo');
+
+            if (role === 'staff') {
+                emailInput.value = accounts.staff.email;
+                passInput.value = accounts.staff.password;
+                demoText.innerText = 'Click to autofill Staff account details';
+                demoAccountInfo.innerHTML = `<b>Email:</b> ${accounts.staff.email} | <b>Password:</b> ${accounts.staff.password}`;
+                submitBtn.innerHTML = 'Sign In as Staff <i class="fa-solid fa-arrow-right"></i>';
+            } else {
+                emailInput.value = accounts.admin.email;
+                passInput.value = accounts.admin.password;
+                demoText.innerText = 'Click to autofill Admin account details';
+                demoAccountInfo.innerHTML = `<b>Email:</b> ${accounts.admin.email} | <b>Password:</b> ${accounts.admin.password}`;
+                submitBtn.innerHTML = 'Sign In as Admin <i class="fa-solid fa-user-shield"></i>';
+            }
+        }
+
+        function autofillDemoCredentials() {
+            document.getElementById('portalEmail').value = accounts[selectedRole].email;
+            document.getElementById('portalPassword').value = accounts[selectedRole].password;
+        }
+
+        function togglePasswordVisibility() {
+            const passInput = document.getElementById('portalPassword');
+            const eyeIcon = document.getElementById('eyeIcon');
+
+            if (passInput.type === 'password') {
+                passInput.type = 'text';
+                eyeIcon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                passInput.type = 'password';
+                eyeIcon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+
+        function handlePortalLogin(e) {
+            e.preventDefault();
+            // Redirect staff to index.html (Dashboard)
+            window.location.href = accounts[selectedRole].redirect;
+        }
+    </script>
+</body>
+
+</html>

@@ -401,3 +401,14 @@ document.addEventListener("DOMContentLoaded", () => {
     applyFilters();
 
 });
+
+ /* =========================
+       LOGOUT
+    ========================== */
+
+    document.getElementById("logoutButton")
+        ?.addEventListener("click", () => {
+            if (confirm("Are you sure you want to logout?")) {
+                showToast("Logging out...", "success");
+            }
+        });
