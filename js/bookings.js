@@ -145,9 +145,6 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!document.getElementById("editBookingBackdrop")?.hidden) closeBookingModal(document.getElementById("editBookingBackdrop"));
             else if (!document.getElementById("bookingDetailsBackdrop")?.hidden) closeBookingModal(document.getElementById("bookingDetailsBackdrop"));
             else if (!actionDialog.backdrop?.hidden) closeModal();
-            else if (document.getElementById("packageModal")?.classList.contains("show")) {
-                document.getElementById("cancelModal")?.click();
-            }
         }
         const target = event.target;
         if (event.key === "/" && actionDialog.backdrop?.hidden && !target?.matches?.("input, textarea, select, [contenteditable='true']")) {
@@ -182,7 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function getBookingData(row) {
         const cells = row?.cells || [];
-        const amount = Number(row?.dataset.amount || cells[5]?.textContent.replace(/[^0-9.]/g, "") || 0);
+        const amount = Number(row?.dataset.amount || cells[6]?.textContent.replace(/[^0-9.]/g, "") || 0);
         return {
             id: row?.dataset.id || cells[0]?.querySelector("strong")?.textContent.trim() || "",
             customer: row?.dataset.customer || cells[1]?.textContent.trim() || "",
@@ -194,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
             package: row?.dataset.package || cells[2]?.textContent.trim() || "",
             tourDate: row?.dataset.tourDate || "",
             duration: row?.dataset.duration || "",
-            pax: row?.dataset.pax || cells[4]?.textContent.trim() || "",
+            pax: row?.dataset.pax || cells[5]?.textContent.trim() || "",
             tourTime: row?.dataset.tourTime || "",
             meetingPoint: row?.dataset.meetingPoint || "",
             guide: row?.dataset.guide || "Unassigned",
@@ -202,6 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
             amount,
             paid: Number(row?.dataset.paid || 0),
             paymentMethod: row?.dataset.paymentMethod || "Cash",
+            paymentStatus: row?.dataset.paymentStatus || "Unpaid",
             notes: row?.dataset.notes || "",
             created: row?.dataset.created || ""
         };
@@ -213,6 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function updatePaymentStatus(row) {
+        if (row.dataset.paymentStatus === "Refunded") return;
         const amount = Number(row.dataset.amount || 0);
         const paid = Number(row.dataset.paid || 0);
         row.dataset.paymentStatus = paid <= 0 ? "Unpaid" : paid >= amount ? "Paid" : "Partial";
@@ -221,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateRowStatus(row, status) {
         if (!bookingStatuses.includes(status)) return;
         row.dataset.status = status;
-        const statusBadge = row.cells[6]?.querySelector(".status");
+        const statusBadge = row.cells[7]?.querySelector(".status");
         if (statusBadge) {
             statusBadge.className = `status ${status}`;
             statusBadge.textContent = status[0].toUpperCase() + status.slice(1);
@@ -261,20 +260,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updatePaymentView(row) {
         const data = getBookingData(row);
-        const balance = Math.max(data.amount - data.paid, 0);
-        const progress = data.amount > 0 ? Math.min(Math.round((data.paid / data.amount) * 100), 100) : 0;
+        const isRefunded = data.paymentStatus === "Refunded";
+        const balance = isRefunded ? 0 : Math.max(data.amount - data.paid, 0);
+        const progress = isRefunded ? 0 : (data.amount > 0 ? Math.min(Math.round((data.paid / data.amount) * 100), 100) : 0);
+        
         setText("detailAmount", formatCurrency(data.amount));
-        setText("detailPaid", formatCurrency(data.paid));
+        setText("detailPaid", isRefunded ? "₱0.00 (Refunded)" : formatCurrency(data.paid));
         setText("detailBalance", formatCurrency(balance));
         setText("detailPaymentMethod", data.paymentMethod);
-        setText("detailPaymentStatus", row.dataset.paymentStatus || "Unpaid");
+        
+        const paymentStatusElem = document.getElementById("detailPaymentStatus");
+        if (paymentStatusElem) {
+            paymentStatusElem.textContent = data.paymentStatus || "Unpaid";
+            if (isRefunded) {
+                paymentStatusElem.className = "status refunded";
+            } else {
+                paymentStatusElem.className = "";
+            }
+        }
+        
         const balanceNode = document.getElementById("detailBalance");
         if (balanceNode) balanceNode.className = `amount-balance ${balance > 0 ? "due" : "clear"}`;
         const progressNode = document.getElementById("paymentProgress");
         if (progressNode) progressNode.setAttribute("aria-valuenow", String(progress));
         const progressFill = document.getElementById("paymentProgressFill");
         if (progressFill) progressFill.style.width = `${progress}%`;
-        setText("paymentProgressText", `${progress}% paid`);
+        setText("paymentProgressText", isRefunded ? "Refunded" : `${progress}% paid`);
     }
 
     function populateBookingDetails(row) {
@@ -353,6 +364,7 @@ document.addEventListener("DOMContentLoaded", () => {
             editAmount: data.amount,
             editPaid: data.paid,
             editPaymentMethod: data.paymentMethod,
+            editPaymentStatus: data.paymentStatus || "Unpaid",
             editGuide: data.guide,
             editStatus: data.status,
             editNotes: data.notes
@@ -382,15 +394,20 @@ document.addEventListener("DOMContentLoaded", () => {
         row.dataset.amount = String(amount);
         row.dataset.paid = String(paid);
         row.dataset.paymentMethod = values.paymentMethod;
+        row.dataset.paymentStatus = values.paymentStatus;
         row.dataset.guide = values.guide;
         row.dataset.notes = values.notes;
-        updatePaymentStatus(row);
+        
+        if (values.paymentStatus !== "Refunded") {
+            updatePaymentStatus(row);
+        }
+        
         updateRowStatus(row, values.status);
         if (row.cells[1]) row.cells[1].textContent = row.dataset.customer;
         if (row.cells[2]) row.cells[2].textContent = row.dataset.package;
         if (row.cells[3]) row.cells[3].textContent = bookingDateDisplay(row.dataset.tourDate);
-        if (row.cells[4]) row.cells[4].textContent = row.dataset.pax;
-        if (row.cells[5]) row.cells[5].textContent = formatCurrency(amount);
+        if (row.cells[5]) row.cells[5].textContent = row.dataset.pax;
+        if (row.cells[6]) row.cells[6].textContent = formatCurrency(amount);
         updateStats();
         applyFilters();
     }
@@ -485,71 +502,40 @@ document.addEventListener("DOMContentLoaded", () => {
         showToast(`Reminder prepared for ${activeBookingRow.dataset.customer}.`, "success");
     });
 
-
     /* =========================
        SIDEBAR TOGGLE
     ========================== */
 
-    const sidebarToggle =
-        document.getElementById("mobileMenu");
+    const sidebarToggle = document.getElementById("mobileMenu");
 
     if (sidebarToggle) {
-
         sidebarToggle.addEventListener("click", () => {
-
-            const isHidden =
-                document.body.classList.toggle("sidebar-hidden");
-
+            const isHidden = document.body.classList.toggle("sidebar-hidden");
             const action = isHidden ? "Show" : "Hide";
-
             sidebarToggle.setAttribute("aria-expanded", String(!isHidden));
             sidebarToggle.setAttribute("aria-label", action + " sidebar");
             sidebarToggle.title = action + " sidebar";
-
         });
-
     }
-
-
-    /* =========================
-       NAV LINKS
-    ========================== */
 
     /* =========================
        ELEMENTS
     ========================== */
 
-    const table =
-        document.getElementById("bookingsTable");
-
-    const tbody =
-        table.querySelector("tbody");
-
-    const rows =
-        Array.from(tbody.querySelectorAll("tr"));
-
-    const emptyState =
-        document.getElementById("emptyState");
-
-    const filterTabs =
-        document.querySelectorAll(".filter-tab");
-
-    const searchInput =
-        document.getElementById("globalSearch");
-
-    const sortSelect =
-        document.getElementById("sortSelect");
-
-    const addBookingButton =
-        document.getElementById("addBookingButton");
-
+    const table = document.getElementById("bookingsTable");
+    const tbody = table.querySelector("tbody");
+    const rows = Array.from(tbody.querySelectorAll("tr"));
+    const emptyState = document.getElementById("emptyState");
+    const filterTabs = document.querySelectorAll(".filter-tab");
+    const searchInput = document.getElementById("globalSearch");
+    const sortSelect = document.getElementById("sortSelect");
+    const addBookingButton = document.getElementById("addBookingButton");
 
     /* =========================
        MINI STATS
     ========================== */
 
     function updateStats() {
-
         const counts = {
             total: 0,
             pending: 0,
@@ -558,17 +544,12 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         rows.forEach(row => {
-
             if (!row.parentNode) return;
-
             counts.total++;
-
             const status = row.dataset.status;
-
             if (status in counts) {
                 counts[status]++;
             }
-
         });
 
         const set = (id, val) => {
@@ -580,9 +561,7 @@ document.addEventListener("DOMContentLoaded", () => {
         set("statPending", counts.pending);
         set("statConfirmed", counts.confirmed);
         set("statCompleted", counts.completed);
-
     }
-
 
     /* =========================
        FILTER + SEARCH + SORT
@@ -592,27 +571,16 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentSort = "newest";
 
     function applyFilters() {
-
-        const keyword =
-            (searchInput?.value || "")
-                .toLowerCase()
-                .trim();
-
+        const keyword = (searchInput?.value || "").toLowerCase().trim();
         let visibleCount = 0;
 
         rows.forEach(row => {
-
             if (!row.parentNode) return;
-
             const status = row.dataset.status;
             const text = row.innerText.toLowerCase();
 
-            const matchesFilter =
-                currentFilter === "all" ||
-                status === currentFilter;
-
-            const matchesSearch =
-                !keyword || text.includes(keyword);
+            const matchesFilter = currentFilter === "all" || status === currentFilter;
+            const matchesSearch = !keyword || text.includes(keyword);
 
             if (matchesFilter && matchesSearch) {
                 row.style.display = "";
@@ -620,20 +588,15 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 row.style.display = "none";
             }
-
         });
 
         if (emptyState) {
             emptyState.hidden = visibleCount !== 0;
         }
-
     }
 
-
     function applySort() {
-
         const sorted = [...rows].sort((a, b) => {
-
             const amountA = Number(a.dataset.amount);
             const amountB = Number(b.dataset.amount);
 
@@ -641,103 +604,74 @@ document.addEventListener("DOMContentLoaded", () => {
             const dateB = new Date(b.dataset.created);
 
             switch (currentSort) {
-
                 case "oldest":
                     return dateA - dateB;
-
                 case "amount-high":
                     return amountB - amountA;
-
                 case "amount-low":
                     return amountA - amountB;
-
                 case "newest":
                 default:
                     return dateB - dateA;
-
             }
-
         });
 
         sorted.forEach(row => tbody.appendChild(row));
-
     }
 
-
     filterTabs.forEach(tab => {
-
         tab.addEventListener("click", () => {
-
             filterTabs.forEach(t => t.classList.remove("active"));
             tab.classList.add("active");
 
             currentFilter = tab.dataset.filter;
             applyFilters();
-
         });
-
     });
-
 
     if (searchInput) {
         searchInput.addEventListener("input", applyFilters);
     }
 
-
     if (sortSelect) {
         sortSelect.addEventListener("change", () => {
-
             currentSort = sortSelect.value;
             applySort();
-
         });
     }
-
 
     /* =========================
        ROW ACTIONS
     ========================== */
 
     document.querySelectorAll(".delete-button").forEach(button => {
-
         button.addEventListener("click", () => {
-
-            const row =
-                button.closest("tr");
-
-            const id =
-                row.querySelector("strong").textContent.trim();
+            const row = button.closest("tr");
+            const id = row.querySelector("strong").textContent.trim();
 
             openConfirm({
                 title: "Delete Booking",
                 message: `Delete booking ${id}? This action cannot be undone.`,
                 confirmLabel: "Delete Booking",
                 onConfirm: () => {
-                row.remove();
+                    row.remove();
+                    const index = rows.indexOf(row);
+                    if (index > -1) rows.splice(index, 1);
 
-                // Remove from the rows array too
-                const index = rows.indexOf(row);
-                if (index > -1) rows.splice(index, 1);
-
-                applyFilters();
-                updateStats();
-                showToast("Booking deleted.", "success");
+                    applyFilters();
+                    updateStats();
+                    showToast("Booking deleted.", "success");
                 }
             });
-
         });
-
     });
-
 
     /* =========================
        ADD BOOKING
     ========================== */
 
     if (addBookingButton) {
-
         addBookingButton.addEventListener("click", () => {
-
             openModal({
                 title: "New Booking",
                 subtitle: "Enter the guest and trip details.",
@@ -749,67 +683,48 @@ document.addEventListener("DOMContentLoaded", () => {
                 confirmLabel: "Create Booking",
                 onConfirm: () => showToast("Booking details captured.", "success")
             });
-
         });
-
     }
-
 
     /* =========================
        NOTIFICATIONS
     ========================== */
 
-    const notificationButton =
-        document.getElementById("notificationButton");
+    const notificationButton = document.getElementById("notificationButton");
 
     if (notificationButton) {
-
         notificationButton.addEventListener("click", () => {
-
             showToast("You have 3 new notifications.", "info");
-
         });
-
     }
-
 
     /* =========================
        LOGOUT
     ========================== */
 
-    const logoutButton =
-        document.getElementById("logoutButton");
+    const logoutButton = document.getElementById("logoutButton");
 
     if (logoutButton) {
-
         logoutButton.addEventListener("click", () => {
-
             openConfirm({
                 title: "Log Out",
                 message: "Are you sure you want to log out?",
                 confirmLabel: "Log Out",
                 onConfirm: () => {
                     showToast("Logging out...", "info");
-                // window.location.href = "login.html";
                 }
             });
-
         });
-
     }
-
 
     /* =========================
        ADMIN PROFILE
     ========================== */
 
-    const adminProfile =
-        document.querySelector(".admin-profile");
+    const adminProfile = document.querySelector(".admin-profile");
 
     if (adminProfile) {
-
         adminProfile.addEventListener("click", () => {
-
             openModal({
                 title: "Staff Profile",
                 subtitle: "Signed in as staff",
@@ -817,11 +732,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 cancelLabel: null,
                 confirmLabel: "Close"
             });
-
         });
-
     }
-
 
     /* =========================
        INIT
@@ -832,14 +744,3 @@ document.addEventListener("DOMContentLoaded", () => {
     applyFilters();
 
 });
-
- /* =========================
-       LOGOUT
-    ========================== */
-
-    document.getElementById("logoutButton")
-        ?.addEventListener("click", () => {
-            if (confirm("Are you sure you want to logout?")) {
-                showToast("Logging out...", "success");
-            }
-        });

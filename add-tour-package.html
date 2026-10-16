@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Tour Package | Uncle Ron's Travel and Tours</title>
+    <link rel="stylesheet" href="css/edit-tour-package.css">
+    <link rel="stylesheet" href="css/add-tour-package.css">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="48x48" href="images/favicon-48.png">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <header class="topbar">
+        <a href="tour-packages.html" class="back">
+            <i data-lucide="arrow-left"></i>Tour Packages
+        </a>
+        <div>
+            <span class="eyebrow">TOUR MANAGEMENT</span>
+            <h1>Add Tour Package</h1>
+        </div>
+        <div class="actions">
+            <a class="secondary-button" href="tour-packages.html">Cancel</a>
+            <button class="primary-button" id="saveButton">
+                <i data-lucide="save"></i>Add Tour
+            </button>
+        </div>
+    </header>
+
+    <main class="page">
+        <form id="packageForm">
+            <section class="section">
+                <div class="section-title">
+                    <div>
+                        <h2>Basic Information</h2>
+                        <p>Information displayed on the package card and package details page.</p>
+                    </div>
+                </div>
+
+                <div class="grid two">
+                    <label>Package Name<input id="name" required></label>
+                    <label>Category
+                        <select id="category">
+                            <option value="south">South Cebu</option>
+                            <option value="cebu">Cebu Tour</option>
+                            <option value="bohol">Cebu-Bohol</option>
+                            <option value="city">City Tour</option>
+                        </select>
+                    </label>
+                    <label class="wide">Short Description<textarea id="shortDescription" rows="3" required></textarea></label>
+                    <label>Status
+                        <select id="status">
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </label>
+                    <label>Featured / Best Seller
+                        <select id="featured">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </label>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-title">
+                    <div>
+                        <h2>Pricing & Duration</h2>
+                        <p>Package-level information only. Date availability and van capacity are handled by bookings/schedules.</p>
+                    </div>
+                </div>
+                <div class="grid three">
+                    <label>Price per Person<input id="price" type="number" min="0" max="1000000" required></label>
+                    <label>Duration<input id="duration" required></label>
+                    <label>Maximum Package Pax<input id="maxGuests" type="number" min="1" max="50" required></label>
+                </div>
+                <!-- <div class="info-box">
+                    <i data-lucide="info"></i>
+                    <span>The 11-pax value is a package display limit for this mockup. Your actual Joiner/Exclusive booking rules should remain in the booking validation, not in the package card.</span>
+                </div> -->
+            </section>
+
+            <!-- BOOKING CAPACITY SECTION -->
+           <!-- BOOKING CAPACITY SECTION -->
+            <section class="section">
+                <div class="section-title">
+                    <div>
+                        <h2>Booking Capacity</h2>
+                        <p>Manage daily total capacity limits for this package.</p>
+                    </div>
+                </div>
+                
+                <div class="capacity-container">
+                    <label>Maximum Guests per Date
+                        <input id="maxGuestsPerDate" type="number" min="1" max="500" placeholder="e.g. 30" required>
+                    </label>
+                    <p class="field-help">Sets the maximum total guests allowed for this package on each date.</p>
+
+                    <!-- Dynamic Inline Alert (Hidden by default, shown only on form submit error) -->
+                    <div id="capacityValidationBox" class="capacity-alert-box" style="display: none;">
+                        <div class="alert-icon" id="capacityAlertIcon">
+                            <i data-lucide="alert-triangle"></i>
+                        </div>
+                        <div class="alert-content">
+                            <p id="capacityAlertMessage">Please enter a valid guest capacity limit.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-title">
+                    <div>
+                        <h2>Tour Content</h2>
+                        <p>Describe the experience and the places included in the package.</p>
+                    </div>
+                </div>
+                <label>Full Overview<textarea id="overview" rows="6" required></textarea></label>
+                <div class="subheading">Destinations</div>
+                <div id="destinations" class="repeat-list"></div>
+                <button type="button" class="add-row" id="addDestination">
+                    <i data-lucide="plus"></i>Add Destination
+                </button>
+            </section>
+
+            <section class="section">
+                <div class="section-title">
+                    <div>
+                        <h2>Itinerary</h2>
+                        <p>Use separate time and activity fields instead of one large formatted paragraph.</p>
+                    </div>
+                </div>
+                <div id="itinerary" class="itinerary-list"></div>
+                <button type="button" class="add-row" id="addItinerary">
+                    <i data-lucide="plus"></i>Add Itinerary Item
+                </button>
+            </section>
+
+            <section class="section">
+                <div class="section-title">
+                    <div>
+                        <h2>Inclusions & Exclusions</h2>
+                        <p>Only add items confirmed by Uncle Ron's.</p>
+                    </div>
+                </div>
+                <div class="grid two">
+                    <div>
+                        <div class="subheading">Inclusions</div>
+                        <div id="inclusions" class="repeat-list"></div>
+                        <button type="button" class="add-row" id="addInclusion">
+                            <i data-lucide="plus"></i>Add Inclusion
+                        </button>
+                    </div>
+                    <div>
+                        <div class="subheading">Exclusions</div>
+                        <div id="exclusions" class="repeat-list"></div>
+                        <button type="button" class="add-row" id="addExclusion">
+                            <i data-lucide="plus"></i>Add Exclusion
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-title">
+                    <div>
+                        <h2>Add-ons</h2>
+                        <p>Optional services shown during booking.</p>
+                    </div>
+                </div>
+                <div id="addons" class="addon-list"></div>
+                <button type="button" class="add-row" id="addAddon">
+                    <i data-lucide="plus"></i>Add Add-on
+                </button>
+            </section>
+
+            <section class="section">
+                <div class="section-title">
+                    <div>
+                        <h2>Pickup & Terms</h2>
+                    </div>
+                </div>
+                <label>Pickup Information<textarea id="pickup" rows="4"></textarea></label>
+            </section>
+
+            <section class="section">
+                <div class="section-title">
+                    <div>
+                        <h2>Package Images</h2>
+                        <p>Use one cover image for the card and additional images for the package details page.</p>
+                    </div>
+                </div>
+                <label>Cover Image<input id="cover" type="text" placeholder="images/package-cover.jpg"></label>
+                <label>Gallery Image Paths<textarea id="gallery" rows="3" placeholder="One image path per line"></textarea></label>
+                <div class="image-preview">
+                    <img id="coverPreview" src="images/package-cover.jpg" alt="Preview">
+                    <span>Mockup preview</span>
+                </div>
+            </section>
+
+            <div class="bottom-actions">
+                <a class="secondary-button" href="tour-packages.html">Cancel</a>
+                <button class="primary-button" type="submit">
+                    <i data-lucide="save"></i>Add Tour
+                </button>
+            </div>
+        </form>
+    </main>
+
+    <script src="js/add-tour-package.js"></script>
+</body>
+</html>

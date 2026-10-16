@@ -1,413 +1,316 @@
 document.addEventListener("DOMContentLoaded", () => {
-
     if (window.lucide) {
         window.lucide.createIcons();
     }
 
-    const actionDialog = {
-        backdrop: document.getElementById("actionModalBackdrop"), title: document.getElementById("actionModalTitle"), subtitle: document.getElementById("actionModalSubtitle"), body: document.getElementById("actionModalBody"), close: document.getElementById("actionModalClose"), cancel: document.getElementById("actionModalCancel"), confirm: document.getElementById("actionModalConfirm")
+    const viewModal = {
+        backdrop: document.getElementById("viewModalBackdrop"),
+        close: document.getElementById("viewModalClose"),
+        closeBtn: document.getElementById("viewModalCloseBtn"),
+        editSwitchBtn: document.getElementById("viewModalEditSwitchBtn")
     };
-    let dialogOnConfirm = null;
-    let dialogReturnFocus = null;
+
+    const editModal = {
+        backdrop: document.getElementById("editModalBackdrop"),
+        close: document.getElementById("editModalClose"),
+        discardBtn: document.getElementById("editModalDiscardBtn"),
+        form: document.getElementById("editBookingForm")
+    };
+
     function showToast(message, type = "info") {
-        const container = document.getElementById("toastContainer"); if (!container) return;
-        const icons = { info: "info", success: "circle-check", error: "circle-x", warning: "triangle-alert" };
-        const toast = document.createElement("div"); toast.className = `toast ${icons[type] ? type : "info"}`; toast.setAttribute("role", "status");
-        const icon = document.createElement("i"); icon.dataset.lucide = icons[type] || icons.info; icon.setAttribute("aria-hidden", "true");
-        const text = document.createElement("span"); text.textContent = message; toast.append(icon, text); container.append(toast); window.lucide?.createIcons();
-        requestAnimationFrame(() => toast.classList.add("show")); window.setTimeout(() => { toast.classList.remove("show"); window.setTimeout(() => toast.remove(), 300); }, 3000);
-    }
-    function closeModal(confirmed = false) {
-        if (!actionDialog.backdrop || actionDialog.backdrop.hidden) return;
-        actionDialog.backdrop.hidden = true; actionDialog.backdrop.setAttribute("aria-hidden", "true"); document.body.classList.remove("modal-open");
-        const callback = dialogOnConfirm; const focusTarget = dialogReturnFocus; dialogOnConfirm = null; dialogReturnFocus = null;
-        if (confirmed) callback?.(); focusTarget?.focus?.();
-    }
-    function openModal(options = {}) {
-        if (!actionDialog.backdrop) return; if (!actionDialog.backdrop.hidden) closeModal();
-        dialogReturnFocus = document.activeElement; actionDialog.title.textContent = options.title || "Action"; actionDialog.subtitle.textContent = options.subtitle || ""; actionDialog.body.replaceChildren();
-        if (options.message) { const message = document.createElement("p"); message.className = "modal-message"; message.textContent = options.message; actionDialog.body.append(message); }
-        const controls = new Map();
-        (options.fields || []).forEach((field, index) => {
-            const wrapper = document.createElement("div"); wrapper.className = "modal-field"; const label = document.createElement("label"); const id = `actionModalField${index}`; label.htmlFor = id; label.textContent = field.label;
-            let control;
-            if (field.type === "textarea") control = document.createElement("textarea");
-            else if (field.type === "select") { control = document.createElement("select"); (field.options || []).forEach(item => { const option = document.createElement("option"); option.value = typeof item === "string" ? item : item.value; option.textContent = typeof item === "string" ? item : item.label; control.append(option); }); }
-            else { control = document.createElement("input"); control.type = field.type === "files" ? "file" : (field.type || "text"); }
-            control.id = id; control.name = field.name || id; if (control.type !== "file") control.value = field.value ?? ""; control.required = Boolean(field.required); control.readOnly = Boolean(field.readOnly); if (field.placeholder) control.placeholder = field.placeholder;
-            controls.set(control.name, control);
-            if (field.type === "files") {
-                control.multiple = field.multiple !== false;
-                control.accept = field.accept || "image/*";
-                control.className = "modal-file-input";
-                const dropZone = document.createElement("div");
-                dropZone.className = "modal-dropzone";
-                dropZone.tabIndex = 0;
-                dropZone.setAttribute("role", "button");
-                dropZone.setAttribute("aria-label", "Choose images or drop them here");
-                const dropIcon = document.createElement("i");
-                dropIcon.dataset.lucide = "image-up";
-                dropIcon.setAttribute("aria-hidden", "true");
-                const dropText = document.createElement("span");
-                dropText.textContent = "Drop images here or browse";
-                dropZone.append(dropIcon, dropText);
-                const previews = document.createElement("div");
-                previews.className = "modal-previews";
-                const renderPreviews = files => {
-                    previews.replaceChildren();
-                    Array.from(files).forEach(file => {
-                        if (!file.type.startsWith("image/")) return;
-                        const reader = new FileReader();
-                        reader.addEventListener("load", () => {
-                            const image = document.createElement("img");
-                            image.src = String(reader.result);
-                            image.alt = file.name;
-                            previews.append(image);
-                        });
-                        reader.readAsDataURL(file);
-                    });
-                };
-                dropZone.addEventListener("click", () => control.click());
-                dropZone.addEventListener("keydown", event => {
-                    if (event.key === "Enter" || event.key === " ") { event.preventDefault(); control.click(); }
-                });
-                dropZone.addEventListener("dragover", event => { event.preventDefault(); dropZone.classList.add("is-dragging"); });
-                dropZone.addEventListener("dragleave", () => dropZone.classList.remove("is-dragging"));
-                dropZone.addEventListener("drop", event => {
-                    event.preventDefault();
-                    dropZone.classList.remove("is-dragging");
-                    if (event.dataTransfer?.files) {
-                        control.files = event.dataTransfer.files;
-                        renderPreviews(control.files);
-                    }
-                });
-                control.addEventListener("change", () => renderPreviews(control.files));
-                wrapper.append(label, dropZone, control, previews);
-            } else {
-                wrapper.append(label, control);
-            }
-            actionDialog.body.append(wrapper);
-        });
-        actionDialog.cancel.textContent = options.cancelLabel || "Cancel"; actionDialog.cancel.hidden = options.cancelLabel === null; actionDialog.confirm.textContent = options.confirmLabel || "Continue"; actionDialog.confirm.hidden = options.confirmLabel === null; actionDialog.confirm.className = options.confirmClass || "primary-button";
-        dialogOnConfirm = () => options.onConfirm?.(Object.fromEntries([...controls].map(([name, control]) => [name, control.type === "file" ? Array.from(control.files || []) : control.value])));
-        window.lucide?.createIcons();
-        actionDialog.backdrop.hidden = false; actionDialog.backdrop.setAttribute("aria-hidden", "false"); document.body.classList.add("modal-open"); requestAnimationFrame(() => (actionDialog.body.querySelector("input:not(.modal-file-input), select, textarea") || actionDialog.body.querySelector(".modal-dropzone") || actionDialog.close).focus());
-    }
-    function openConfirm(options = {}) { openModal({ ...options, cancelLabel: options.cancelLabel || "No", confirmLabel: options.confirmLabel || "Yes, Continue", confirmClass: options.confirmClass || "danger-button" }); }
-    actionDialog.close?.addEventListener("click", () => closeModal()); actionDialog.cancel?.addEventListener("click", () => closeModal());
-    actionDialog.confirm?.addEventListener("click", () => { const invalid = [...actionDialog.body.querySelectorAll("input, select, textarea")].find(control => !control.checkValidity()); if (invalid) { invalid.reportValidity(); return; } closeModal(true); });
-    actionDialog.backdrop?.addEventListener("click", event => { if (event.target === actionDialog.backdrop) closeModal(); });
-    document.addEventListener("keydown", event => {
-        if (event.key === "Escape") { if (!actionDialog.backdrop?.hidden) closeModal(); else if (document.getElementById("packageModal")?.classList.contains("show")) document.getElementById("cancelModal")?.click(); }
-        const target = event.target;
-        if (event.key === "/" && actionDialog.backdrop?.hidden && !target?.matches?.("input, textarea, select, [contenteditable='true']")) { const search = document.getElementById("globalSearch"); if (search) { event.preventDefault(); search.focus(); } }
-    });
-
-    /* =========================
-       CURRENT DATE
-    ========================== */
-
-    const currentDate =
-        document.getElementById("currentDate");
-
-    if (currentDate) {
-
-        const today = new Date();
-
-        currentDate.textContent =
-            today.toLocaleDateString(
-                "en-US",
-                {
-                    weekday: "long",
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric"
-                }
-            );
+        const container = document.getElementById("toastContainer");
+        if (!container) return;
+        const toast = document.createElement("div");
+        toast.className = `toast ${type}`;
+        toast.innerHTML = `<span>${message}</span>`;
+        container.append(toast);
+        requestAnimationFrame(() => toast.classList.add("show"));
+        setTimeout(() => {
+            toast.classList.remove("show");
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
     }
 
-
-    /* =========================
-       SIDEBAR VISIBILITY
-    ========================== */
-
-    const sidebarToggle =
-        document.getElementById("mobileMenu");
-
-    if (sidebarToggle) {
-
-        sidebarToggle.addEventListener("click", () => {
-
-            const isHidden =
-                document.body.classList.toggle("sidebar-hidden");
-
-            const action = isHidden ? "Show" : "Hide";
-
-            sidebarToggle.setAttribute("aria-expanded", String(!isHidden));
-            sidebarToggle.setAttribute("aria-label", action + " sidebar");
-            sidebarToggle.title = action + " sidebar";
-
-        });
-
-    }
-
-
-    /* =========================
-       SIDEBAR NAVIGATION
-    ========================== */
-
-    /* =========================
-       GLOBAL SEARCH
-    ========================== */
-
-    const searchInput =
-        document.getElementById("globalSearch");
-
-    if (searchInput) {
-
-        searchInput.addEventListener(
-            "input",
-            () => {
-
-                const searchValue =
-                    searchInput.value
-                        .toLowerCase()
-                        .trim();
-
-                const rows =
-                    document.querySelectorAll(
-                        "#toursTable tbody tr"
-                    );
-
-                rows.forEach(row => {
-
-                    const rowText =
-                        row.innerText.toLowerCase();
-
-                    if (
-                        rowText.includes(searchValue)
-                    ) {
-
-                        row.style.display = "";
-
-                    } else {
-
-                        row.style.display = "none";
-
-                    }
-
-                });
-
-            }
-        );
-
-    }
-
-
-    /* =========================
-       NOTIFICATIONS
-    ========================== */
-
-    const notificationButton =
-        document.getElementById(
-            "notificationButton"
-        );
-
-    if (notificationButton) {
-
-        notificationButton.addEventListener(
-            "click",
-            () => {
-
-                showToast("You have 2 new notifications.", "info");
-
-            }
-        );
-
-    }
-
-/* =========================
-   QUICK ACTIONS
-========================== */
-
-const quickActions =
-    document.querySelectorAll(
-        ".quick-action"
-    );
-
-quickActions.forEach(button => {
-
-    button.addEventListener(
-        "click",
-        () => {
-
-            const action = button.dataset.action;
-            if (action === "View Bookings") { window.location.href = "bookings.html"; return; }
-            if (action === "View Reviews") { window.location.href = "reviews.html"; return; }
-
-            if (action === "Add Customer") {
-                openModal({
-                    title: "Add Customer",
-                    subtitle: "Enter the customer details.",
-                    fields: [
-                        { name: "name", label: "Full name", required: true },
-                        { name: "email", label: "Email address", type: "email", required: true },
-                        { name: "phone", label: "Phone number", type: "tel", required: true }
-                    ],
-                    confirmLabel: "Add Customer",
-                    onConfirm: () => showToast("Customer storage is not connected in this prototype.", "info")
-                });
-                return;
-            }
-
-            if (action === "Assign Tour Guide") {
-                const tourOptions = [...document.querySelectorAll("#toursTable tbody tr")].map(row => {
-                    const cells = row.querySelectorAll("td");
-                    const reference = row.querySelector("strong")?.textContent.trim() || "";
-                    return { value: reference, label: `${reference} - ${cells[1]?.textContent.trim() || "Tour"}` };
-                });
-                const guideName = document.querySelector(".admin-mini strong")?.textContent.trim() || "Staff member";
-                openModal({
-                    title: "Assign Tour Guide",
-                    subtitle: "Choose a tour and guide.",
-                    fields: [
-                        { name: "tour", label: "Tour", type: "select", options: [{ value: "", label: "Select a tour" }, ...tourOptions], required: true },
-                        { name: "guide", label: "Tour guide", type: "select", options: [{ value: guideName, label: guideName }], required: true }
-                    ],
-                    confirmLabel: "Assign Guide",
-                    onConfirm: () => showToast("Guide assignment is not connected to a booking service.", "info")
-                });
-                return;
-            }
-
-            if (action === "Upload Photos") {
-                openModal({
-                    title: "Upload Photos",
-                    subtitle: "Choose one or more tour images.",
-                    fields: [{ name: "photos", label: "Photos", type: "files", accept: "image/*", multiple: true, required: true }],
-                    confirmLabel: "Upload Photos",
-                    onConfirm: values => showToast(`${values.photos.length} photo${values.photos.length === 1 ? "" : "s"} selected. Upload storage is not connected.`, "info")
-                });
-                return;
-            }
-
-            openModal({
-                title: "Check Messages",
-                subtitle: "Compose a message to a staff member.",
-                fields: [
-                    { name: "recipient", label: "Recipient", required: true },
-                    { name: "message", label: "Message", type: "textarea", required: true }
-                ],
-                confirmLabel: "Send Message",
-                onConfirm: () => showToast("Messaging is not connected in this prototype.", "info")
-            });
-
+    /* Modal Toggle Functions */
+   function openViewModal(data) {
+        if (!viewModal.backdrop) return;
+        
+        // Populate view fields
+        document.getElementById("viewModalBookingId").textContent = `Booking #${data.bookingId || "2026-8671"}`;
+        document.getElementById("viewModalPackage").textContent = data.packageName || "Private Oslob Tour";
+        document.getElementById("viewModalDeparture").textContent = data.time || "5:00 AM";
+        document.getElementById("viewModalGuestName").textContent = data.leadGuest || "Dadas Santos";
+        document.getElementById("viewModalGuests").textContent = `${data.guests || "2"} Adults`;
+        document.getElementById("viewModalBookingType").textContent = data.type || "Exclusive";
+        
+        // Update top status badge dynamically (e.g., Pending vs Confirmed)
+        const headerBadge = document.getElementById("viewModalConfirmedBadge");
+        if (headerBadge) {
+            const currentStatus = data.status || "Confirmed";
+            headerBadge.textContent = currentStatus;
+            headerBadge.className = `status ${currentStatus.toLowerCase()}`;
         }
-    );
 
-});
-    /* =========================
-       VIEW TOUR DETAILS
-    ========================== */
+        // Keep pending or explicitly unpaid bookings as partially paid
+        const isPending = data.status === "Pending";
+        const isFullyPaid = !isPending && (data.leadGuest === "Maria Santos" || data.leadGuest === "Ana Garcia" || (data.rowIndex % 2 === 1));
+        
+        const paymentBadge = document.getElementById("viewModalPaymentStatusBadge");
+        const paidPrice = document.getElementById("viewModalPaidPrice");
+        const balanceLabel = document.getElementById("viewModalBalanceLabel");
+        const balancePrice = document.getElementById("viewModalBalancePrice");
 
-    const editButtons =
-        document.querySelectorAll(
-            ".edit-button"
-        );
-
-    editButtons.forEach(button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                const tourName =
-                    button
-                        .closest(".package-row")
-                        .querySelector(
-                            ".package-info strong"
-                        )
-                        .textContent
-                        .trim();
-
-                openModal({
-                    title: "Tour Details",
-                    subtitle: "Assigned tour",
-                    message: tourName,
-                    cancelLabel: null,
-                    confirmLabel: "Close"
-                });
-
+        if (paymentBadge && paidPrice && balanceLabel && balancePrice) {
+            if (isFullyPaid) {
+                paymentBadge.className = "status fully-paid";
+                paymentBadge.textContent = "Fully Paid";
+                paidPrice.textContent = "₱8,400.00";
+                balanceLabel.className = "text-success";
+                balanceLabel.textContent = "Balance";
+                balancePrice.className = "text-success";
+                balancePrice.textContent = "₱0.00";
+            } else {
+                paymentBadge.className = "status partially-paid";
+                paymentBadge.textContent = "Partially Paid";
+                paidPrice.textContent = "₱4,200.00";
+                balanceLabel.className = "text-danger";
+                balanceLabel.textContent = "Balance";
+                balancePrice.className = "text-danger";
+                balancePrice.textContent = "₱4,200.00";
             }
-        );
+        }
 
+        // Hide Tour Status in View Modal for upcoming tours
+        const tourStatusGroup = document.getElementById("viewModalTourStatus")?.closest(".detail-group");
+        if (tourStatusGroup) {
+            tourStatusGroup.style.display = data.isUpcoming ? "none" : "block";
+        }
+
+        viewModal.backdrop.hidden = false;
+        document.body.classList.add("modal-open");
+    }
+
+    function closeViewModal() {
+        if (viewModal.backdrop) {
+            viewModal.backdrop.hidden = true;
+            document.body.classList.remove("modal-open");
+        }
+    }
+
+    function openEditModal(data) {
+        if (!editModal.backdrop) return;
+
+        // Populate edit fields
+        document.getElementById("editModalTitle").textContent = "Edit Booking";
+        document.getElementById("editModalSubtitle").textContent = data.isUpcoming ? "Upcoming Tours · Staff Dashboard" : "Today's Tours · Staff Dashboard";
+        document.getElementById("editModalInfoTag").textContent = `${data.packageName || "Private Oslob Tour"} · ${data.time || "5:00 AM"}`;
+        document.getElementById("editModalBookingNumberTag").textContent = `#${data.bookingId || "2026-8671"}`;
+        
+        document.getElementById("editInfoBookingNum").textContent = `#${data.bookingId || "2026-8671"}`;
+        document.getElementById("editInfoBookingType").textContent = data.type || "Exclusive";
+        document.getElementById("editInfoPackage").textContent = data.packageName || "Private Oslob Tour";
+        document.getElementById("editInfoDeparture").textContent = data.time || "5:00 AM";
+        
+        document.getElementById("editGuestName").value = data.leadGuest || "Dadas Santos";
+        document.getElementById("editGuestCount").value = data.guests || 2;
+
+        // Configure Booking Status options based on whether it is an upcoming tour
+        const bookingStatusSelect = document.getElementById("editBookingStatus");
+        if (bookingStatusSelect) {
+            if (data.isUpcoming) {
+                bookingStatusSelect.innerHTML = `
+                    // <option value="Confirmed">Confirmed</option>
+                    <option value="Cancelled">Cancelled</option>
+                `;
+            } else {
+                bookingStatusSelect.innerHTML = `
+                    <option value="Confirmed">Confirmed</option>
+                    <option value="Cancelled">Cancelled</option>
+                `;
+            }
+        }
+
+        // Hide Tour Status in Edit Modal for upcoming tours
+        const tourStatusGroup = document.getElementById("editTourStatus")?.closest(".form-group");
+        if (tourStatusGroup) {
+            tourStatusGroup.style.display = data.isUpcoming ? "none" : "flex";
+        }
+        
+        editModal.backdrop.hidden = false;
+        document.body.classList.add("modal-open");
+    }
+
+    function closeEditModal() {
+        if (editModal.backdrop) {
+            editModal.backdrop.hidden = true;
+            document.body.classList.remove("modal-open");
+        }
+    }
+
+    /* Event Listeners for Modals */
+    viewModal.close?.addEventListener("click", closeViewModal);
+    viewModal.closeBtn?.addEventListener("click", closeViewModal);
+    viewModal.editSwitchBtn?.addEventListener("click", () => {
+        closeViewModal();
+        openEditModal({ isUpcoming: false });
     });
 
+    editModal.close?.addEventListener("click", closeEditModal);
+    editModal.discardBtn?.addEventListener("click", closeEditModal);
 
-    /* =========================
-       LOGOUT
-    ========================== */
+    editModal.form?.addEventListener("submit", (e) => {
+        e.preventDefault();
+        closeEditModal();
+        showToast("Booking details saved successfully.", "success");
+    });
 
-    const logoutButton =
-        document.getElementById(
-            "logoutButton"
-        );
+    const deleteModal = {
+        backdrop: document.getElementById("deleteModalBackdrop"),
+        close: document.getElementById("deleteModalClose"),
+        cancelBtn: document.getElementById("deleteModalCancelBtn"),
+        confirmBtn: document.getElementById("deleteModalConfirmBtn")
+    };
 
-    if (logoutButton) {
+    let targetRowToDelete = null;
 
-        logoutButton.addEventListener(
-            "click",
-            () => {
+    function openDeleteModal(row) {
+        if (!deleteModal.backdrop) return;
+        targetRowToDelete = row;
+        deleteModal.backdrop.hidden = false;
+        document.body.classList.add("modal-open");
+    }
 
-                openConfirm({
-                    title: "Log Out",
-                    message: "Are you sure you want to log out?",
-                    confirmLabel: "Log Out",
-                    onConfirm: () => {
-                        showToast("Logging out...", "info");
-                    // Later:
-                    // window.location.href =
-                    // "login.html";
+    function closeDeleteModal() {
+        if (deleteModal.backdrop) {
+            deleteModal.backdrop.hidden = true;
+            document.body.classList.remove("modal-open");
+        }
+    }
+
+    deleteModal.close?.addEventListener("click", () => {
+        closeDeleteModal();
+        targetRowToDelete = null;
+    });
+
+    deleteModal.cancelBtn?.addEventListener("click", () => {
+        closeDeleteModal();
+        targetRowToDelete = null;
+    });
+    
+    deleteModal.confirmBtn?.addEventListener("click", () => {
+        if (targetRowToDelete) {
+            const rowToRemove = targetRowToDelete;
+            closeDeleteModal();
+            rowToRemove.remove();
+            targetRowToDelete = null;
+            showToast("Booking deleted successfully.", "success");
+        } else {
+            closeDeleteModal();
+        }
+    });
+
+    /* Table Button Handlers */
+    document.addEventListener("click", event => {
+        const viewBtn = event.target.closest(".view-btn");
+        const editBtn = event.target.closest(".edit-btn");
+        const deleteBtn = event.target.closest(".delete-btn");
+
+        if (viewBtn) {
+            const row = viewBtn.closest("tr");
+            const rowIndex = Array.from(row.parentNode.children).indexOf(row);
+            const isUpcoming = Boolean(viewBtn.closest("#upcomingToursTable"));
+            const data = {
+                time: row.querySelectorAll("td")[0]?.textContent?.trim(),
+                packageName: row.querySelectorAll("td")[1]?.textContent?.trim(),
+                leadGuest: row.querySelectorAll("td")[2]?.textContent?.trim(),
+                guests: row.querySelectorAll("td")[3]?.textContent?.trim(),
+                type: row.querySelectorAll("td")[4]?.textContent?.trim(),
+                status: row.querySelectorAll("td")[5]?.textContent?.trim(),
+                bookingId: "2026-8671",
+                rowIndex,
+                isUpcoming
+            };
+            openViewModal(data);
+        }
+
+        if (editBtn) {
+            const row = editBtn.closest("tr");
+            const isUpcoming = Boolean(editBtn.closest("#upcomingToursTable"));
+            const data = {
+                time: row.querySelectorAll("td")[0]?.textContent?.trim(),
+                packageName: row.querySelectorAll("td")[1]?.textContent?.trim(),
+                leadGuest: row.querySelectorAll("td")[2]?.textContent?.trim(),
+                guests: row.querySelectorAll("td")[3]?.textContent?.trim(),
+                type: row.querySelectorAll("td")[4]?.textContent?.trim(),
+                status: row.querySelectorAll("td")[5]?.textContent?.trim(),
+                bookingId: "2026-8671",
+                isUpcoming
+            };
+            openEditModal(data);
+        }
+
+        if (deleteBtn) {
+            const row = deleteBtn.closest("tr");
+            openDeleteModal(row);
+        }
+    });
+
+    /* Sidebar Mobile Toggle */
+    const sidebarToggle = document.getElementById("mobileMenu");
+    if (sidebarToggle) {
+        sidebarToggle.addEventListener("click", () => {
+            document.body.classList.toggle("sidebar-hidden");
+        });
+    }
+
+    // Notification Dropdown
+    const notificationBtn = document.getElementById("notificationButton");
+    const notificationDropdown = document.getElementById("notificationDropdown");
+
+    if (notificationBtn && notificationDropdown) {
+        notificationBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            notificationDropdown.hidden = !notificationDropdown.hidden;
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!notificationDropdown.contains(e.target) && !notificationBtn.contains(e.target)) {
+                notificationDropdown.hidden = true;
+            }
+        });
+    }
+
+    // Global Search Filter for Dashboard Tables
+    const globalSearch = document.getElementById("globalSearch");
+
+    if (globalSearch) {
+        globalSearch.addEventListener("input", (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            const tables = [
+                document.getElementById("toursTable"), 
+                document.getElementById("upcomingToursTable")
+            ];
+            
+            tables.forEach(table => {
+                if (!table) return;
+                const dataRows = table.querySelectorAll("tbody tr:not(.empty-row)");
+                const emptyRow = table.querySelector("tbody tr.empty-row");
+                let visibleCount = 0;
+
+                dataRows.forEach(row => {
+                    const rowText = row.textContent.toLowerCase();
+                    if (!query || rowText.includes(query)) {
+                        row.style.display = "";
+                        visibleCount++;
+                    } else {
+                        row.style.display = "none";
                     }
                 });
 
-            }
-        );
-
-    }
-
-
-    /* =========================
-       STAFF PROFILE
-    ========================== */
-
-    const adminProfile =
-        document.querySelector(
-            ".admin-profile"
-        );
-
-    if (adminProfile) {
-
-        adminProfile.addEventListener(
-            "click",
-            () => {
-
-                openModal({ title: "Staff Profile", subtitle: "Signed in as staff", message: "Jonas Reyes", cancelLabel: null, confirmLabel: "Close" });
-
-            }
-        );
-
-    }
-
-});
-
- /* =========================
-       LOGOUT
-    ========================== */
-
-    document.getElementById("logoutButton")
-        ?.addEventListener("click", () => {
-            if (confirm("Are you sure you want to logout?")) {
-                showToast("Logging out...", "success");
-            }
+                if (emptyRow) {
+                    emptyRow.hidden = visibleCount > 0;
+                }
+            });
         });
+    }
+});

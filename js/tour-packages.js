@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
             ...options,
             cancelLabel: options.cancelLabel || "No",
             confirmLabel: options.confirmLabel || "Yes, Continue",
-            confirmClass: options.confirmClass || "danger-button"
+            confirmClass: options.confirmClass || options.confirmButtonClass || "danger-button"
         });
     }
 
@@ -154,7 +154,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("keydown", event => {
         if (event.key === "Escape") {
             if (!actionDialog.backdrop?.hidden) closeModal();
-            else if (document.getElementById("packageModal")?.classList.contains("show")) document.getElementById("cancelModal")?.click();
         }
         const target = event.target;
         if (event.key === "/" && actionDialog.backdrop?.hidden && !target?.matches?.("input, textarea, select, [contenteditable='true']")) {
@@ -181,18 +180,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    const modal = document.getElementById("packageModal");
-    const openPackageModalButton = document.getElementById("openAddModal");
-    const closePackageModalButton = document.getElementById("closeModal");
-    const cancelPackageModalButton = document.getElementById("cancelModal");
-    const form = document.getElementById("packageForm");
     const searchInput = document.getElementById("globalSearch");
     const categoryFilter = document.getElementById("categoryFilter");
     const statusFilter = document.getElementById("statusFilter");
     const packageGrid = document.getElementById("packageGrid");
     const packageCount = document.getElementById("packageCount");
     const emptyState = document.getElementById("emptyState");
-    const packageImageInput = document.getElementById("packageImage");
     const notificationButton = document.getElementById("notificationButton");
     const logoutButton = document.getElementById("logoutButton");
 
@@ -224,41 +217,152 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* =========================
-       ADD PACKAGE MODAL TOGGLES
+       LOCALSTORAGE PACKAGE RENDERING & FILTERING
     ========================== */
 
-    openPackageModalButton?.addEventListener("click", () => {
-        modal.hidden = false;
-        modal.setAttribute("aria-hidden", "false");
-        modal.classList.add("show");
-        modal.querySelector("input, select, textarea")?.focus();
-    });
+    const PACKAGE_KEY = "uncleRonPackages";
 
-    function closePackageModal() {
-        modal.classList.remove("show");
-        modal.hidden = true;
-        modal.setAttribute("aria-hidden", "true");
-        form.reset();
-        openPackageModalButton.focus();
+    const defaultPackages = [
+        {
+            id: "cebu-3d2n",
+            name: "3D2N Cebu Tour",
+            category: "cebu",
+            categoryLabel: "Cebu Tour",
+            status: "active",
+            price: "5098",
+            maxGuests: "10",
+            duration: "3 Days / 2 Nights",
+            shortDescription: "Explore the beautiful beaches, waterfalls and famous attractions of Cebu.",
+            cover: "images/CARD 1.jpg"
+        },
+        {
+            id: "moalboal-badian",
+            name: "Moalboal-Badian Adventure",
+            category: "south",
+            categoryLabel: "South Cebu",
+            status: "active",
+            price: "3500",
+            maxGuests: "8",
+            duration: "1 Day",
+            shortDescription: "Experience sardine runs, canyoneering and the beautiful waterfalls of South Cebu.",
+            cover: "images/CARD 2.jpg"
+        },
+        {
+            id: "cebu-bohol-4d3n",
+            name: "4D3N Cebu-Bohol Tour",
+            category: "bohol",
+            categoryLabel: "Cebu - Bohol",
+            status: "active",
+            price: "7598",
+            maxGuests: "12",
+            duration: "4 Days / 3 Nights",
+            shortDescription: "Visit the Chocolate Hills, Loboc River and other popular destinations in Cebu and Bohol.",
+            cover: "images/CARD 3.jpg"
+        },
+        {
+            id: "cebu-city-uphill",
+            name: "Cebu City & Uphill Tour",
+            category: "city",
+            categoryLabel: "City Tour",
+            status: "active",
+            price: "2500",
+            maxGuests: "10",
+            duration: "1 Day",
+            shortDescription: "Discover Cebu's historical landmarks, churches and beautiful mountain views.",
+            cover: "images/card 4.jpg"
+        },
+        {
+            id: "oslob-whale-shark",
+            name: "Oslob Whale Shark Tour",
+            category: "south",
+            categoryLabel: "South Cebu",
+            status: "active",
+            price: "4200",
+            maxGuests: "8",
+            duration: "1 Day",
+            shortDescription: "Enjoy a memorable day exploring Oslob and its famous attractions.",
+            cover: "images/card 5.jpg"
+        },
+        {
+            id: "cebu-island-hopping",
+            name: "Cebu Island Hopping",
+            category: "cebu",
+            categoryLabel: "Cebu Tour",
+            status: "inactive",
+            price: "3800",
+            maxGuests: "10",
+            duration: "1 Day",
+            shortDescription: "Explore beautiful islands and crystal-clear waters around Cebu.",
+            cover: "images/3ae9e23822f34f7c5f05c9d961d3becf.jpg"
+        }
+    ];
+
+    function getPackages() {
+        try {
+            const stored = JSON.parse(localStorage.getItem(PACKAGE_KEY));
+            if (Array.isArray(stored) && stored.length > 0) {
+                return stored;
+            }
+        } catch {}
+        
+        localStorage.setItem(PACKAGE_KEY, JSON.stringify(defaultPackages));
+        return defaultPackages;
     }
 
-    closePackageModalButton?.addEventListener("click", closePackageModal);
-    cancelPackageModalButton?.addEventListener("click", closePackageModal);
+    let packages = getPackages();
 
-    modal?.addEventListener("click", (event) => {
-        if (event.target === modal) {
-            closePackageModal();
-        }
-    });
+    function renderPackages() {
+        if (!packageGrid) return;
+        packageGrid.innerHTML = '';
 
-    /* =========================
-       SEARCH + FILTER
-    ========================== */
+        packages.forEach(pkg => {
+            const card = document.createElement('article');
+            card.className = 'package-card';
+            card.dataset.id = pkg.id;
+            card.dataset.category = pkg.category;
+            card.dataset.status = pkg.status;
+            card.dataset.name = pkg.name;
+
+            card.innerHTML = `
+                <div class="package-image">
+                    <img src="${pkg.cover || 'images/card-1.jpg'}" alt="${pkg.name}">
+                    <span class="status ${pkg.status}">${pkg.status === 'active' ? 'Active' : 'Inactive'}</span>
+                    <button class="image-menu" type="button" aria-label="Actions for ${pkg.name}"><i data-lucide="ellipsis"></i></button>
+                    <div class="card-menu">
+                        <button class="edit-btn" type="button"><i data-lucide="pencil"></i>Edit</button>
+                        <button class="delete-btn" type="button"><i data-lucide="trash-2"></i>Delete</button>
+                    </div>
+                </div>
+                <div class="package-body">
+                    <div class="package-category">${(pkg.categoryLabel || pkg.category).toUpperCase()}</div>
+                    <h2>${pkg.name}</h2>
+                    <p>${pkg.shortDescription || pkg.overview || ""}</p>
+                    <div class="package-info">
+                        <span><i data-lucide="clock-3"></i>${pkg.duration}</span>
+                        <span><i data-lucide="users"></i>Up to ${pkg.maxGuests} pax</span>
+                    </div>
+                    <div class="package-footer">
+                        <div>
+                            <small>Starting at</small>
+                            <strong>₱${Number(pkg.price || 0).toLocaleString()}</strong>
+                            <small>/ person</small>
+                        </div>
+                        <button class="view-btn" type="button">View Details</button>
+                    </div>
+                </div>
+            `;
+
+            packageGrid.appendChild(card);
+        });
+
+        window.lucide?.createIcons();
+        filterPackages();
+    }
 
     function filterPackages() {
-        const search = searchInput.value.toLowerCase().trim();
-        const category = categoryFilter.value;
-        const status = statusFilter.value;
+        const search = searchInput ? searchInput.value.toLowerCase().trim() : "";
+        const category = categoryFilter ? categoryFilter.value : "all";
+        const status = statusFilter ? statusFilter.value : "all";
         const cards = document.querySelectorAll(".package-card");
         let visibleCount = 0;
 
@@ -279,8 +383,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        packageCount.textContent = visibleCount;
-        emptyState.style.display = visibleCount === 0 ? "block" : "none";
+        if (packageCount) packageCount.textContent = visibleCount;
+        if (emptyState) emptyState.style.display = visibleCount === 0 ? "block" : "none";
     }
 
     searchInput?.addEventListener("input", filterPackages);
@@ -318,33 +422,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const card = editButton.closest(".package-card");
             if (!card) return;
-
-            editButton.closest(".card-menu")?.classList.remove("show");
-
-            const packageName = card.dataset.name;
-            const nameField = card.querySelector(".package-body h2");
-            const descriptionField = card.querySelector(".package-body p");
-            const priceField = card.querySelector(".package-footer strong");
-
-            openModal({
-                title: "Edit Tour Package",
-                subtitle: "Update the package details.",
-                fields: [
-                    { name: "name", label: "Package name", value: packageName, required: true },
-                    { name: "description", label: "Description", type: "textarea", value: descriptionField?.textContent?.trim() || "", required: true },
-                    { name: "price", label: "Price per person", type: "number", value: priceField?.textContent.replace(/[^0-9.]/g, "") || "", required: true }
-                ],
-                confirmLabel: "Save Changes",
-                onConfirm: values => {
-                    const name = values.name.trim();
-                    card.dataset.name = name;
-                    if (nameField) nameField.textContent = name;
-                    if (descriptionField) descriptionField.textContent = values.description;
-                    if (priceField) priceField.textContent = `₱${Number(values.price).toLocaleString()}`;
-                    filterPackages();
-                    showToast("Tour package updated.", "success");
-                }
-            });
+            const pkgId = card.dataset.id;
+            location.href = 'edit-tour-package.html?id=' + pkgId;
             return;
         }
 
@@ -357,18 +436,21 @@ document.addEventListener("DOMContentLoaded", () => {
             const card = deleteButton.closest(".package-card");
             if (!card) return;
 
+            const pkgId = card.dataset.id;
             const packageName = card.dataset.name;
+
             openConfirm({
                 title: "Delete Tour Package",
                 message: `Are you sure you want to delete "${packageName}"? This action cannot be undone.`,
                 confirmLabel: "Delete Package",
+                confirmClass: "primary-button delete-btn",
                 onConfirm: () => {
-                    const image = card.querySelector("img");
-                    if (image?.src.startsWith("blob:")) {
-                        URL.revokeObjectURL(image.src);
-                    }
+                    packages = packages.filter(p => String(p.id) !== String(pkgId));
+                    localStorage.setItem(PACKAGE_KEY, JSON.stringify(packages));
                     card.remove();
-                    filterPackages();
+                    if (typeof filterPackages === "function") {
+                        filterPackages();
+                    }
                     showToast("Tour package deleted successfully.", "success");
                 }
             });
@@ -383,146 +465,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const card = viewButton.closest(".package-card");
             if (!card) return;
-
-            const packageName = card.dataset.name;
-            openModal({
-                title: packageName,
-                subtitle: "Tour package details",
-                message: card.querySelector(".package-body p")?.textContent?.trim() || "No description available.",
-                cancelLabel: null,
-                confirmLabel: "Close"
-            });
+            const pkgId = card.dataset.id;
+            location.href = 'view-tour-package.html?id=' + pkgId;
             return;
         }
-    });
-
-    /* =========================
-       CREATE / ADD PACKAGE
-    ========================== */
-
-    function createIcon(name) {
-        const icon = document.createElement("i");
-        icon.dataset.lucide = name;
-        icon.setAttribute("aria-hidden", "true");
-        return icon;
-    }
-
-    function createTextElement(tagName, className, text) {
-        const element = document.createElement(tagName);
-        element.className = className;
-        element.textContent = text;
-        return element;
-    }
-
-    function createPackageCard({ name, category, status, price, pax, duration, description, imageFile }) {
-        const card = document.createElement("article");
-        card.className = "package-card";
-        card.dataset.category = category;
-        card.dataset.status = status;
-        card.dataset.name = name;
-
-        const imageArea = document.createElement("div");
-        imageArea.className = "package-image";
-
-        if (imageFile) {
-            const image = document.createElement("img");
-            image.src = URL.createObjectURL(imageFile);
-            image.alt = name;
-            imageArea.append(image);
-        } else {
-            imageArea.append(createTextElement("div", "image-fallback", "Image unavailable"));
-        }
-
-        imageArea.append(
-            createTextElement("span", `status ${status}`, status === "active" ? "Active" : "Inactive")
-        );
-
-        const menuButton = createTextElement("button", "image-menu", "");
-        menuButton.type = "button";
-        menuButton.setAttribute("aria-label", `Actions for ${name}`);
-        menuButton.append(createIcon("ellipsis"));
-
-        const menu = document.createElement("div");
-        menu.className = "card-menu";
-
-        const editBtn = createTextElement("button", "edit-btn", "Edit");
-        editBtn.type = "button";
-        editBtn.prepend(createIcon("pencil"));
-
-        const deleteBtn = createTextElement("button", "delete-btn", "Delete");
-        deleteBtn.type = "button";
-        deleteBtn.prepend(createIcon("trash-2"));
-
-        menu.append(editBtn, deleteBtn);
-        imageArea.append(menuButton, menu);
-
-        const body = document.createElement("div");
-        body.className = "package-body";
-        body.append(
-            createTextElement("div", "package-category", category.toUpperCase()),
-            createTextElement("h2", "", name),
-            createTextElement("p", "", description)
-        );
-
-        const info = document.createElement("div");
-        info.className = "package-info";
-
-        const durationItem = createTextElement("span", "", duration);
-        durationItem.prepend(createIcon("clock-3"));
-
-        const capacityItem = createTextElement("span", "", `Up to ${pax} pax`);
-        capacityItem.prepend(createIcon("users"));
-        info.append(durationItem, capacityItem);
-
-        const footer = document.createElement("div");
-        footer.className = "package-footer";
-
-        const priceBlock = document.createElement("div");
-        priceBlock.append(
-            createTextElement("small", "", "Starting at "),
-            createTextElement("strong", "", `₱${Number(price).toLocaleString()}`),
-            createTextElement("small", "", " / person")
-        );
-
-        const viewBtn = createTextElement("button", "view-btn", "View Details");
-        viewBtn.type = "button";
-
-        footer.append(priceBlock, viewBtn);
-        body.append(info, footer);
-        card.append(imageArea, body);
-
-        return card;
-    }
-
-    form?.addEventListener("submit", event => {
-        event.preventDefault();
-
-        const name = document.getElementById("packageName").value.trim();
-        const category = document.getElementById("packageCategory").value;
-        const status = document.getElementById("packageStatus").value;
-        const price = document.getElementById("packagePrice").value;
-        const pax = document.getElementById("packagePax").value;
-        const duration = document.getElementById("packageDuration").value;
-        const description = document.getElementById("packageDescription").value;
-        const imageFile = packageImageInput.files[0];
-
-        const card = createPackageCard({
-            name,
-            category,
-            status,
-            price,
-            pax,
-            duration,
-            description,
-            imageFile
-        });
-
-        packageGrid.prepend(card);
-        window.lucide?.createIcons();
-
-        closePackageModal();
-        filterPackages();
-        showToast("Tour package added successfully.", "success");
     });
 
     /* =========================
@@ -533,7 +479,8 @@ document.addEventListener("DOMContentLoaded", () => {
         showToast("You have 2 new notifications.", "info");
     });
 
-    logoutButton?.addEventListener("click", () => {
+    logoutButton?.addEventListener("click", (e) => {
+        e.preventDefault();
         openConfirm({
             title: "Log Out",
             message: "Are you sure you want to log out?",
@@ -542,15 +489,5 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    renderPackages();
 });
-
- /* =========================
-       LOGOUT
-    ========================== */
-
-    document.getElementById("logoutButton")
-        ?.addEventListener("click", () => {
-            if (confirm("Are you sure you want to logout?")) {
-                showToast("Logging out...", "success");
-            }
-        });

@@ -487,6 +487,105 @@ footer {
     color: #8da4ba;
 }
 
+/* ================= FORGOT PASSWORD MODAL ================= */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 22, 41, 0.6);
+    backdrop-filter: blur(4px);
+    display: grid;
+    place-items: center;
+    z-index: 999;
+    padding: 20px;
+}
+
+.modal-overlay[hidden] {
+    display: none !important;
+}
+
+.modal-card {
+    position: relative;
+    background: #ffffff;
+    width: 100%;
+    max-width: 440px;
+    border-radius: 18px;
+    padding: 32px 28px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(5, 22, 41, 0.3);
+    animation: modalPop 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalPop {
+    0% { opacity: 0; transform: scale(0.95) translateY(10px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: var(--muted);
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover {
+    color: var(--navy);
+}
+
+.modal-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    font-size: 24px;
+}
+
+.modal-icon.warning {
+    background: #edf8ff;
+    color: var(--blue);
+}
+
+.modal-card h3 {
+    color: var(--navy);
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.modal-card p {
+    color: #4a5d73;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.modal-primary-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: var(--blue);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.modal-primary-btn:hover {
+    background: var(--navy);
+}
+
 /* ================= RESPONSIVE ================= */
 
 @media (max-width: 992px) {

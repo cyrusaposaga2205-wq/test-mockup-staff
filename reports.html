@@ -10,6 +10,7 @@
     <link rel="icon" type="image/png" sizes="48x48" href="images/favicon-48.png">
     
     <link rel="stylesheet" href="css/reports.css">
+    <link rel="stylesheet" href="css/style.css">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
@@ -73,7 +74,7 @@
             </a>
 
             <a href="reports.html" class="nav-link active" aria-current="page">
-                <span class="icon"><i data-lucide="chart-no-axes-column-increasing" aria-hidden="true"></i></span>
+                <span class="icon"><i data-lucide="calendar-days" aria-hidden="true"></i></span>
                 <span>Reports</span>
             </a>
 
@@ -209,7 +210,7 @@
                     </h1>
 
                     <p>
-                        Track performance, revenue, and booking trends over time.
+                        Track collected payments, booking activity, and completed tours. Sample figures are for UI demonstration only.
                     </p>
 
                 </div>
@@ -237,141 +238,37 @@
 
                     </div>
 
-
-                    <button
-                        class="primary-button"
-                        id="exportReportButton">
-
-                        <i data-lucide="download" aria-hidden="true"></i>
-                        Export
-
-                    </button>
-
                 </div>
 
             </section>
 
 
             <!-- KPI CARDS -->
-
             <section class="kpi-grid">
-
-
                 <div class="kpi-card blue">
-
-                    <div class="kpi-head">
-
-                        <div class="kpi-icon blue">
-                            <i data-lucide="dollar-sign" aria-hidden="true"></i>
-                        </div>
-
-                        <span class="kpi-change positive">
-                            ↑ 12.5%
-                        </span>
-
-                    </div>
-
-                    <span class="kpi-label">
-                        Total Revenue
-                    </span>
-
-                    <h2 class="kpi-value">
-                        ₱482,340
-                    </h2>
-
-                    <small>
-                        vs ₱428,720 last period
-                    </small>
-
+                    <div class="kpi-head"><div class="kpi-icon blue"><i data-lucide="dollar-sign" aria-hidden="true"></i></div></div>
+                    <span class="kpi-label">Revenue Collected</span>
+                    <h2 class="kpi-value">₱482,340</h2>
+                    <small>Successful payments in this period</small>
                 </div>
-
-
                 <div class="kpi-card green">
-
-                    <div class="kpi-head">
-
-                        <div class="kpi-icon green">
-                            <i data-lucide="calendar-check" aria-hidden="true"></i>
-                        </div>
-
-                        <span class="kpi-change positive">
-                            ↑ 8.2%
-                        </span>
-
-                    </div>
-
-                    <span class="kpi-label">
-                        Total Bookings
-                    </span>
-
-                    <h2 class="kpi-value">
-                        248
-                    </h2>
-
-                    <small>
-                        vs 229 last period
-                    </small>
-
+                    <div class="kpi-head"><div class="kpi-icon green"><i data-lucide="calendar-check" aria-hidden="true"></i></div></div>
+                    <span class="kpi-label">Total Bookings</span>
+                    <h2 class="kpi-value">248</h2>
+                    <small>Bookings created in this period</small>
                 </div>
-
-
                 <div class="kpi-card yellow">
-
-                    <div class="kpi-head">
-
-                        <div class="kpi-icon yellow">
-                            <i data-lucide="users" aria-hidden="true"></i>
-                        </div>
-
-                        <span class="kpi-change positive">
-                            ↑ 15.7%
-                        </span>
-
-                    </div>
-
-                    <span class="kpi-label">
-                        Guests Served
-                    </span>
-
-                    <h2 class="kpi-value">
-                        892
-                    </h2>
-
-                    <small>
-                        vs 771 last period
-                    </small>
-
+                    <div class="kpi-head"><div class="kpi-icon yellow"><i data-lucide="users" aria-hidden="true"></i></div></div>
+                    <span class="kpi-label">Guests Served</span>
+                    <h2 class="kpi-value">892</h2>
+                    <small>Guests from completed tours</small>
                 </div>
-
-
                 <div class="kpi-card purple">
-
-                    <div class="kpi-head">
-
-                        <div class="kpi-icon purple">
-                            <i data-lucide="star" aria-hidden="true"></i>
-                        </div>
-
-                        <span class="kpi-change positive">
-                            ↑ 0.2
-                        </span>
-
-                    </div>
-
-                    <span class="kpi-label">
-                        Avg. Rating
-                    </span>
-
-                    <h2 class="kpi-value">
-                        4.9
-                    </h2>
-
-                    <small>
-                        from 186 reviews
-                    </small>
-
+                    <div class="kpi-head"><div class="kpi-icon purple"><i data-lucide="calendar-x" aria-hidden="true"></i></div></div>
+                    <span class="kpi-label">Cancelled Bookings</span>
+                    <h2 class="kpi-value">12</h2>
+                    <small>Cancelled in this period</small>
                 </div>
-
             </section>
 
 
@@ -393,7 +290,7 @@
                             </h2>
 
                             <p>
-                                Daily earnings over the selected period
+                                Payments successfully collected over the selected period
                             </p>
 
                         </div>
@@ -473,7 +370,7 @@
                             </h2>
 
                             <p>
-                                Distribution of booking statuses
+                                Booking status totals for the selected period
                             </p>
 
                         </div>
@@ -492,7 +389,7 @@
                                 </strong>
 
                                 <small>
-                                    Total
+                                    Bookings
                                 </small>
 
                             </div>
@@ -533,536 +430,6 @@
                         </div>
 
                     </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- TOP PACKAGES + TOP GUIDES -->
-
-            <section class="chart-grid">
-
-
-                <!-- TOP PACKAGES -->
-
-                <div class="dashboard-card">
-
-                    <div class="card-header">
-
-                        <div>
-
-                            <h2>
-                                Top Tour Packages
-                            </h2>
-
-                            <p>
-                                Most booked packages this period
-                            </p>
-
-                        </div>
-
-                        <a href="tour-packages.html">
-                            View All
-                        </a>
-
-                    </div>
-
-
-                    <div class="ranked-list">
-
-
-                        <div class="ranked-row">
-
-                            <div class="rank-number">1</div>
-
-                            <div class="rank-info">
-
-                                <strong>
-                                    3D2N Cebu Tour
-                                </strong>
-
-                                <small>
-                                    78 bookings · ₱185,400
-                                </small>
-
-                            </div>
-
-                            <div class="rank-bar">
-                                <div class="rank-bar-fill" style="width: 100%"></div>
-                            </div>
-
-                            <strong class="rank-value">
-                                78
-                            </strong>
-
-                        </div>
-
-
-                        <div class="ranked-row">
-
-                            <div class="rank-number">2</div>
-
-                            <div class="rank-info">
-
-                                <strong>
-                                    4D3N Cebu-Bohol
-                                </strong>
-
-                                <small>
-                                    62 bookings · ₱164,200
-                                </small>
-
-                            </div>
-
-                            <div class="rank-bar">
-                                <div class="rank-bar-fill" style="width: 80%"></div>
-                            </div>
-
-                            <strong class="rank-value">
-                                62
-                            </strong>
-
-                        </div>
-
-
-                        <div class="ranked-row">
-
-                            <div class="rank-number">3</div>
-
-                            <div class="rank-info">
-
-                                <strong>
-                                    Moalboal-Badian
-                                </strong>
-
-                                <small>
-                                    54 bookings · ₱78,900
-                                </small>
-
-                            </div>
-
-                            <div class="rank-bar">
-                                <div class="rank-bar-fill" style="width: 70%"></div>
-                            </div>
-
-                            <strong class="rank-value">
-                                54
-                            </strong>
-
-                        </div>
-
-
-                        <div class="ranked-row">
-
-                            <div class="rank-number">4</div>
-
-                            <div class="rank-info">
-
-                                <strong>
-                                    Oslob-Simala
-                                </strong>
-
-                                <small>
-                                    42 bookings · ₱53,840
-                                </small>
-
-                            </div>
-
-                            <div class="rank-bar">
-                                <div class="rank-bar-fill" style="width: 55%"></div>
-                            </div>
-
-                            <strong class="rank-value">
-                                42
-                            </strong>
-
-                        </div>
-
-
-                    </div>
-
-                </div>
-
-
-                <!-- TOP GUIDES -->
-
-                <div class="dashboard-card">
-
-                    <div class="card-header">
-
-                        <div>
-
-                            <h2>
-                                Top Tour Guides
-                            </h2>
-
-                            <p>
-                                Best performing guides this period
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="ranked-list">
-
-
-                        <div class="ranked-row">
-
-                            <div class="rank-avatar">
-                                P
-                            </div>
-
-                            <div class="rank-info">
-
-                                <strong>
-                                    Patrick Reyes
-                                </strong>
-
-                                <small>
-                                    68 tours · ★ 4.9
-                                </small>
-
-                            </div>
-
-                            <div class="rank-bar">
-                                <div class="rank-bar-fill" style="width: 100%"></div>
-                            </div>
-
-                            <strong class="rank-value">
-                                68
-                            </strong>
-
-                        </div>
-
-
-                        <div class="ranked-row">
-
-                            <div class="rank-avatar">
-                                R
-                            </div>
-
-                            <div class="rank-info">
-
-                                <strong>
-                                    Rico Mendoza
-                                </strong>
-
-                                <small>
-                                    54 tours · ★ 4.8
-                                </small>
-
-                            </div>
-
-                            <div class="rank-bar">
-                                <div class="rank-bar-fill" style="width: 80%"></div>
-                            </div>
-
-                            <strong class="rank-value">
-                                54
-                            </strong>
-
-                        </div>
-
-
-                        <div class="ranked-row">
-
-                            <div class="rank-avatar">
-                                C
-                            </div>
-
-                            <div class="rank-info">
-
-                                <strong>
-                                    Carlo Diaz
-                                </strong>
-
-                                <small>
-                                    47 tours · ★ 4.9
-                                </small>
-
-                            </div>
-
-                            <div class="rank-bar">
-                                <div class="rank-bar-fill" style="width: 70%"></div>
-                            </div>
-
-                            <strong class="rank-value">
-                                47
-                            </strong>
-
-                        </div>
-
-
-                        <div class="ranked-row">
-
-                            <div class="rank-avatar">
-                                L
-                            </div>
-
-                            <div class="rank-info">
-
-                                <strong>
-                                    Lisa Fernandez
-                                </strong>
-
-                                <small>
-                                    39 tours · ★ 5.0
-                                </small>
-
-                            </div>
-
-                            <div class="rank-bar">
-                                <div class="rank-bar-fill" style="width: 58%"></div>
-                            </div>
-
-                            <strong class="rank-value">
-                                39
-                            </strong>
-
-                        </div>
-
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- RECENT ACTIVITY TABLE -->
-
-            <section class="dashboard-card">
-
-                <div class="card-header">
-
-                    <div>
-
-                        <h2>
-                            Recent Transactions
-                        </h2>
-
-                        <p>
-                            Latest booking payments and activity
-                        </p>
-
-                    </div>
-
-                    <a href="bookings.html">
-                        View All
-                    </a>
-
-                </div>
-
-
-                <div class="table-wrapper">
-
-                    <table id="transactionsTable">
-
-                        <thead>
-
-                            <tr>
-
-                                <th>
-                                    Date
-                                </th>
-
-                                <th>
-                                    Reference
-                                </th>
-
-                                <th>
-                                    Customer
-                                </th>
-
-                                <th>
-                                    Package
-                                </th>
-
-                                <th>
-                                    Amount
-                                </th>
-
-                                <th>
-                                    Status
-                                </th>
-
-                            </tr>
-
-                        </thead>
-
-
-                        <tbody>
-
-                            <tr>
-
-                                <td>
-                                    Sep 30, 2026
-                                </td>
-
-                                <td>
-                                    <strong>
-                                        TX-0091
-                                    </strong>
-                                </td>
-
-                                <td>
-                                    Maria Santos
-                                </td>
-
-                                <td>
-                                    3D2N Cebu Tour
-                                </td>
-
-                                <td>
-                                    ₱20,392
-                                </td>
-
-                                <td>
-                                    <span class="status confirmed">
-                                        Paid
-                                    </span>
-                                </td>
-
-                            </tr>
-
-
-                            <tr>
-
-                                <td>
-                                    Sep 29, 2026
-                                </td>
-
-                                <td>
-                                    <strong>
-                                        TX-0090
-                                    </strong>
-                                </td>
-
-                                <td>
-                                    John Dela Cruz
-                                </td>
-
-                                <td>
-                                    4D3N Cebu-Bohol
-                                </td>
-
-                                <td>
-                                    ₱45,588
-                                </td>
-
-                                <td>
-                                    <span class="status pending">
-                                        Pending
-                                    </span>
-                                </td>
-
-                            </tr>
-
-
-                            <tr>
-
-                                <td>
-                                    Sep 29, 2026
-                                </td>
-
-                                <td>
-                                    <strong>
-                                        TX-0089
-                                    </strong>
-                                </td>
-
-                                <td>
-                                    Ana Reyes
-                                </td>
-
-                                <td>
-                                    Moalboal-Badian
-                                </td>
-
-                                <td>
-                                    ₱25,490
-                                </td>
-
-                                <td>
-                                    <span class="status confirmed">
-                                        Paid
-                                    </span>
-                                </td>
-
-                            </tr>
-
-
-                            <tr>
-
-                                <td>
-                                    Sep 28, 2026
-                                </td>
-
-                                <td>
-                                    <strong>
-                                        TX-0088
-                                    </strong>
-                                </td>
-
-                                <td>
-                                    Claire Tan
-                                </td>
-
-                                <td>
-                                    Oslob-Simala
-                                </td>
-
-                                <td>
-                                    ₱15,294
-                                </td>
-
-                                <td>
-                                    <span class="status completed">
-                                        Refunded
-                                    </span>
-                                </td>
-
-                            </tr>
-
-
-                            <tr>
-
-                                <td>
-                                    Sep 27, 2026
-                                </td>
-
-                                <td>
-                                    <strong>
-                                        TX-0087
-                                    </strong>
-                                </td>
-
-                                <td>
-                                    Daniel Ortiz
-                                </td>
-
-                                <td>
-                                    3D2N Cebu Tour
-                                </td>
-
-                                <td>
-                                    ₱20,392
-                                </td>
-
-                                <td>
-                                    <span class="status confirmed">
-                                        Paid
-                                    </span>
-                                </td>
-
-                            </tr>
-
-                        </tbody>
-
-                    </table>
 
                 </div>
 

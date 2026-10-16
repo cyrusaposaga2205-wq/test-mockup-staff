@@ -16,1033 +16,358 @@
 
 <body>
 
-    <!-- =========================
-         SIDEBAR
-    ========================== -->
-
+    <!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
-
         <div class="sidebar-logo">
-
-            <img
-                src="images/Uncle_rons_logo-removebg-preview.png"
-                alt="Uncle Ron's Travel and Tours"
-            >
-
+            <img src="images/Uncle_rons_logo-removebg-preview.png" alt="Uncle Ron's Travel and Tours">
             <h3>UNCLE RON'S</h3>
-
-            <span>
-                TRAVEL AND TOURS
-            </span>
-
+            <span>TRAVEL AND TOURS</span>
         </div>
 
-
         <nav class="sidebar-nav">
-
             <a href="index.html" class="nav-link">
                 <span class="icon"><i data-lucide="layout-dashboard" aria-hidden="true"></i></span>
                 <span>Dashboard</span>
             </a>
-
             <a href="tour-packages.html" class="nav-link">
                 <span class="icon"><i data-lucide="package" aria-hidden="true"></i></span>
                 <span>Tour Packages</span>
             </a>
-
             <a href="bookings.html" class="nav-link">
                 <span class="icon"><i data-lucide="calendar-check" aria-hidden="true"></i></span>
                 <span>Bookings</span>
-
-                <span class="nav-badge">
-                    8
-                </span>
+                <span class="nav-badge">8</span>
             </a>
-
-            <!-- <a href="customers.html" class="nav-link">
-                <span class="icon"><i data-lucide="users" aria-hidden="true"></i></span>
-                <span>Customers</span>
-            </a> -->
-
             <a href="reviews.html" class="nav-link active" aria-current="page">
                 <span class="icon"><i data-lucide="star" aria-hidden="true"></i></span>
                 <span>Reviews</span>
-
-                <span class="nav-badge">
-                    3
-                </span>
+                <span class="nav-badge">3</span>
             </a>
-
             <a href="reports.html" class="nav-link">
-                <span class="icon"><i data-lucide="chart-no-axes-column-increasing" aria-hidden="true"></i></span>
+                <span class="icon"><i data-lucide="calendar-days" aria-hidden="true"></i></span>
                 <span>Reports</span>
             </a>
-
             <a href="settings.html" class="nav-link">
                 <span class="icon"><i data-lucide="settings" aria-hidden="true"></i></span>
                 <span>Settings</span>
             </a>
-
         </nav>
 
-
         <div class="sidebar-footer">
-
             <div class="admin-mini">
-
-                <div class="admin-avatar">
-                    J
-                </div>
-
+                <div class="admin-avatar">J</div>
                 <div>
                     <strong>Jonas Reyes</strong>
                     <small>Staff</small>
                 </div>
-
             </div>
-
-
-           <a href="login.html" class="logout-button" id="logoutButton">
+            <a href="login.html" class="logout-button" id="logoutButton">
                 <i data-lucide="log-out" aria-hidden="true"></i>
                 <span>Logout</span>
             </a>
-
         </div>
-
     </aside>
 
-
-    <!-- =========================
-         MAIN
-    ========================== -->
-
+    <!-- MAIN -->
     <main class="main-content">
 
-
         <!-- TOPBAR -->
-
         <header class="topbar">
-
-            <button
-                class="mobile-menu"
-                id="mobileMenu"
-                type="button"
-                aria-label="Hide sidebar"
-                aria-controls="sidebar"
-                aria-expanded="true"
-                title="Hide sidebar">
+            <button class="mobile-menu" id="mobileMenu" type="button" aria-label="Hide sidebar" title="Hide sidebar">
                 <i data-lucide="menu" aria-hidden="true"></i>
             </button>
 
-
             <div class="search-container">
-
                 <span class="search-icon"><i data-lucide="search" aria-hidden="true"></i></span>
-
-                <input
-                    type="text"
-                    id="globalSearch"
-                    placeholder="Search reviews by customer, package, comment..."
-                >
-
+                <input type="text" id="globalSearch" placeholder="Search reviews by customer, package, comment...">
             </div>
-
 
             <div class="topbar-right">
-
-                <button
-                    class="notification-button"
-                    id="notificationButton">
-
+                <button class="notification-button" id="notificationButton">
                     <i data-lucide="bell" aria-hidden="true"></i>
-
-                    <span>
-                        3
-                    </span>
-
+                    <span>3</span>
                 </button>
-
 
                 <div class="admin-profile">
-
-                    <div class="admin-avatar">
-                        J
-                    </div>
-
+                    <div class="admin-avatar">J</div>
                     <div class="admin-profile-info">
-
-                        <strong>
-                            Jonas Reyes
-                        </strong>
-
-                        <small>
-                            Staff
-                        </small>
-
+                        <strong>Jonas Reyes</strong>
+                        <small>Staff</small>
                     </div>
-
-                    <span class="dropdown-arrow">
-                        ▾
-                    </span>
-
+                    <span class="dropdown-arrow">▾</span>
                 </div>
-
             </div>
-
         </header>
 
-
-        <!-- =========================
-             PAGE CONTENT
-        ========================== -->
-
+        <!-- PAGE CONTENT -->
         <section class="dashboard-content">
 
-
             <!-- PAGE HEADER -->
-
             <section class="page-header">
-
                 <div>
-
-                    <h1>
-                        Reviews
-                    </h1>
-
-                    <p>
-                        See what customers are saying about your tours and services.
-                    </p>
-
+                    <h1>Reviews</h1>
+                    <p>See what customers are saying about your tours and services.</p>
                 </div>
-
-
-                <button
-                    class="primary-button"
-                    id="exportReviewsButton">
-
-                    <i data-lucide="download" aria-hidden="true"></i>
-                    Export Reviews
-
-                </button>
-
             </section>
 
-
             <!-- RATING SUMMARY -->
-
             <section class="rating-summary">
-
-
                 <div class="rating-overall">
-
-                    <div class="rating-score">
-                        4.9
-                    </div>
-
-                    <div class="rating-stars">
-                        ★★★★★
-                    </div>
-
-                    <small>
-                        Based on 186 reviews
-                    </small>
-
+                    <div class="rating-score">4.9</div>
+                    <div class="rating-stars">★★★★★</div>
+                    <small>Based on 186 reviews</small>
                 </div>
-
 
                 <div class="rating-bars">
-
                     <div class="rating-bar-row">
                         <span>5★</span>
-                        <div class="rating-bar">
-                            <div class="rating-bar-fill" style="width: 92%"></div>
-                        </div>
+                        <div class="rating-bar"><div class="rating-bar-fill" style="width: 92%"></div></div>
                         <strong>171</strong>
                     </div>
-
                     <div class="rating-bar-row">
                         <span>4★</span>
-                        <div class="rating-bar">
-                            <div class="rating-bar-fill" style="width: 6%"></div>
-                        </div>
+                        <div class="rating-bar"><div class="rating-bar-fill" style="width: 6%"></div></div>
                         <strong>11</strong>
                     </div>
-
                     <div class="rating-bar-row">
                         <span>3★</span>
-                        <div class="rating-bar">
-                            <div class="rating-bar-fill" style="width: 1%"></div>
-                        </div>
+                        <div class="rating-bar"><div class="rating-bar-fill" style="width: 1%"></div></div>
                         <strong>3</strong>
                     </div>
-
                     <div class="rating-bar-row">
                         <span>2★</span>
-                        <div class="rating-bar">
-                            <div class="rating-bar-fill" style="width: 0.5%"></div>
-                        </div>
+                        <div class="rating-bar"><div class="rating-bar-fill" style="width: 0.5%"></div></div>
                         <strong>1</strong>
                     </div>
-
                     <div class="rating-bar-row">
                         <span>1★</span>
-                        <div class="rating-bar">
-                            <div class="rating-bar-fill" style="width: 0%"></div>
-                        </div>
+                        <div class="rating-bar"><div class="rating-bar-fill" style="width: 0%"></div></div>
                         <strong>0</strong>
                     </div>
-
                 </div>
 
-
                 <div class="rating-highlights">
-
-                    <div class="highlight-item">
-                        <div class="highlight-icon blue">
-                            <i data-lucide="smile" aria-hidden="true"></i>
-                        </div>
+                    <!-- <div class="highlight-item">
+                        <div class="highlight-icon blue"><i data-lucide="smile" aria-hidden="true"></i></div>
                         <div>
                             <span>Guide Friendliness</span>
                             <strong>4.9</strong>
                         </div>
                     </div>
-
                     <div class="highlight-item">
-                        <div class="highlight-icon green">
-                            <i data-lucide="map-pin" aria-hidden="true"></i>
-                        </div>
+                        <div class="highlight-icon green"><i data-lucide="map-pin" aria-hidden="true"></i></div>
                         <div>
                             <span>Tour Experience</span>
                             <strong>4.8</strong>
                         </div>
                     </div>
-
                     <div class="highlight-item">
-                        <div class="highlight-icon yellow">
-                            <i data-lucide="clock-3" aria-hidden="true"></i>
-                        </div>
+                        <div class="highlight-icon yellow"><i data-lucide="clock-3" aria-hidden="true"></i></div>
                         <div>
                             <span>Punctuality</span>
                             <strong>4.9</strong>
                         </div>
+                    </div> -->
+
+                    <!-- Total Reviews -->
+                    <div class="highlight-item">
+                        <div class="highlight-icon blue">
+                            <i data-lucide="message-square" aria-hidden="true"></i>
+                        </div>
+                        <div>
+                            <span>Total Reviews</span>
+                            <strong>186</strong>
+                        </div>
                     </div>
 
+                    <!-- Pending Approval -->
+                    <div class="highlight-item">
+                        <div class="highlight-icon orange">
+                            <i data-lucide="clock" aria-hidden="true"></i>
+                        </div>
+                        <div>
+                            <span>Pending Approval</span>
+                            <strong>5</strong>
+                        </div>
+                    </div>
+
+                    <!-- Approved Reviews -->
+                    <div class="highlight-item">
+                        <div class="highlight-icon green">
+                            <i data-lucide="check-circle-2" aria-hidden="true"></i>
+                        </div>
+                        <div>
+                            <span>Approved Reviews</span>
+                            <strong>181</strong>
+                        </div>
+                    </div>
                 </div>
-
             </section>
-
 
             <!-- FILTER BAR -->
-
             <section class="filter-bar">
-
                 <div class="filter-tabs">
-
-                    <button class="filter-tab active" data-filter="all">
-                        All
-                    </button>
-
-                    <button class="filter-tab" data-filter="5">
-                        5★
-                    </button>
-
-                    <button class="filter-tab" data-filter="4">
-                        4★
-                    </button>
-
-                    <button class="filter-tab" data-filter="3">
-                        3★
-                    </button>
-
-                    <button class="filter-tab" data-filter="2">
-                        2★
-                    </button>
-
-                    <button class="filter-tab" data-filter="1">
-                        1★
-                    </button>
-
-                    <button class="filter-tab" data-filter="unreplied">
-                        Unreplied
-                    </button>
-
+                    <button class="filter-tab active" data-filter="all">All</button>
+                    <button class="filter-tab" data-filter="5">5★</button>
+                    <button class="filter-tab" data-filter="4">4★</button>
+                    <button class="filter-tab" data-filter="3">3★</button>
+                    <button class="filter-tab" data-filter="2">2★</button>
+                    <button class="filter-tab" data-filter="1">1★</button>
                 </div>
-
 
                 <div class="filter-sort">
-
-                    <label for="sortSelect">
-                        Sort by:
-                    </label>
-
+                    <label for="sortSelect">Sort by:</label>
                     <select id="sortSelect">
-
-                        <option value="newest">
-                            Newest
-                        </option>
-
-                        <option value="oldest">
-                            Oldest
-                        </option>
-
-                        <option value="highest">
-                            Rating: High to Low
-                        </option>
-
-                        <option value="lowest">
-                            Rating: Low to High
-                        </option>
-
+                        <option value="newest">Newest</option>
+                        <option value="oldest">Oldest</option>
                     </select>
-
                 </div>
-
             </section>
 
-
             <!-- REVIEWS LIST -->
-
             <section class="reviews-list" id="reviewsList">
 
-
-                <!-- REVIEW 1 -->
-
-                <article
-                    class="review-card"
-                    data-rating="5"
-                    data-replied="true"
-                    data-created="2026-09-30">
-
+                <!-- REVIEW 1 (APPROVED) -->
+                <article class="review-card" data-rating="5" data-status="approved" data-created="2026-09-30">
                     <div class="review-card-head">
-
                         <div class="customer-cell">
-
                             <div class="customer-avatar">M</div>
-
                             <div>
-
                                 <strong>Maria Santos</strong>
-
                                 <small>maria.santos@email.com</small>
-
                             </div>
-
                         </div>
-
-
                         <div class="review-card-meta">
-
-                            <span class="review-rating">
-                                ★★★★★
-                            </span>
-
-                            <small>
-                                2 hours ago
-                            </small>
-
+                            <span class="review-rating">★★★★★</span>
+                            <small>2 hours ago</small>
                         </div>
-
                     </div>
 
-
                     <div class="review-card-body">
-
                         <div class="review-package">
-
                             <i data-lucide="package" aria-hidden="true"></i>
                             3D2N Cebu Tour · Oct 05, 2026
-
                         </div>
-
                         <p>
                             "Very accommodating staff and our Cebu tour was amazing!
                             Everything was well organized from start to finish.
                             Highly recommended for first-time visitors."
                         </p>
-
                     </div>
-
 
                     <div class="review-card-footer">
-
-                        <div class="review-tags">
-
-                            <span class="review-tag positive">
-                                Friendly Staff
-                            </span>
-
-                            <span class="review-tag positive">
-                                Well Organized
-                            </span>
-
+                        <div class="review-status-area">
+                            <!-- Rendered via JS -->
                         </div>
-
-
                         <div class="review-actions">
-
-                            <button class="text-button reply-button">
-                                <i data-lucide="reply" aria-hidden="true"></i>
-                                Reply
-                            </button>
-
-                             <button class="text-button reply-button">
-                                <i data-lucide="reply" aria-hidden="true"></i>
-                                Add to landing page
-                            </button>
-
-                            <button class="icon-button delete-button" title="Delete">
-                                <i data-lucide="trash-2" aria-hidden="true"></i>
-                            </button>
-
+                            <!-- Rendered via JS -->
                         </div>
-
                     </div>
-
-
-                    <div class="review-reply">
-
-                        <div class="reply-label">
-                            <i data-lucide="corner-down-right" aria-hidden="true"></i>
-                            Admin replied
-                        </div>
-
-                        <p>
-                            Thank you so much, Maria! We're glad you enjoyed the tour.
-                            We hope to see you again soon!
-                        </p>
-
-                    </div>
-
                 </article>
 
-
-                <!-- REVIEW 2 -->
-
-                <article
-                    class="review-card"
-                    data-rating="5"
-                    data-replied="false"
-                    data-created="2026-09-29">
-
+                <!-- REVIEW 2 (PENDING) -->
+                <article class="review-card" data-rating="5" data-status="pending" data-created="2026-09-29">
                     <div class="review-card-head">
-
                         <div class="customer-cell">
-
                             <div class="customer-avatar">J</div>
-
                             <div>
-
                                 <strong>James Lee</strong>
-
                                 <small>james.lee@email.com</small>
-
                             </div>
-
                         </div>
-
-
                         <div class="review-card-meta">
-
-                            <span class="review-rating">
-                                ★★★★★
-                            </span>
-
-                            <small>
-                                Yesterday
-                            </small>
-
+                            <span class="review-rating">★★★★★</span>
+                            <small>Yesterday</small>
                         </div>
-
                     </div>
 
-
                     <div class="review-card-body">
-
                         <div class="review-package">
-
                             <i data-lucide="package" aria-hidden="true"></i>
                             Moalboal-Badian · Sep 25, 2026
-
                         </div>
-
                         <p>
                             "The tour guide was very helpful and made sure
                             everyone was safe while snorkeling.
                             Highly recommended!"
                         </p>
-
                     </div>
-
 
                     <div class="review-card-footer">
-
-                        <div class="review-tags">
-
-                            <span class="review-tag positive">
-                                Great Guide
-                            </span>
-
-                            <span class="review-tag positive">
-                                Safe
-                            </span>
-
+                        <div class="review-status-area">
+                            <!-- Rendered via JS -->
                         </div>
-
-
                         <div class="review-actions">
-
-                            <button class="text-button reply-button">
-                                <i data-lucide="reply" aria-hidden="true"></i>
-                                Reply
-                            </button>
-
-                            <button class="icon-button delete-button" title="Delete">
-                                <i data-lucide="trash-2" aria-hidden="true"></i>
-                            </button>
-
+                            <!-- Rendered via JS -->
                         </div>
-
                     </div>
-
                 </article>
 
-
-                <!-- REVIEW 3 -->
-
-                <article
-                    class="review-card"
-                    data-rating="4"
-                    data-replied="true"
-                    data-created="2026-09-28">
-
+                <!-- REVIEW 3 (PENDING) -->
+                <article class="review-card" data-rating="4" data-status="pending" data-created="2026-09-28">
                     <div class="review-card-head">
-
                         <div class="customer-cell">
-
                             <div class="customer-avatar">A</div>
-
                             <div>
-
                                 <strong>Angela Cruz</strong>
-
                                 <small>angela.cruz@email.com</small>
-
                             </div>
-
                         </div>
-
-
                         <div class="review-card-meta">
-
-                            <span class="review-rating">
-                                ★★★★☆
-                            </span>
-
-                            <small>
-                                2 days ago
-                            </small>
-
+                            <span class="review-rating">★★★★☆</span>
+                            <small>2 days ago</small>
                         </div>
-
                     </div>
 
-
                     <div class="review-card-body">
-
                         <div class="review-package">
-
                             <i data-lucide="package" aria-hidden="true"></i>
                             Oslob-Simala · Sep 20, 2026
-
                         </div>
-
                         <p>
                             "Good experience and smooth booking. The only downside
                             was the early call time, but overall very worth it."
                         </p>
-
                     </div>
-
 
                     <div class="review-card-footer">
-
-                        <div class="review-tags">
-
-                            <span class="review-tag positive">
-                                Smooth Booking
-                            </span>
-
-                            <span class="review-tag neutral">
-                                Early Call Time
-                            </span>
-
+                        <div class="review-status-area">
+                            <!-- Rendered via JS -->
                         </div>
-
-
                         <div class="review-actions">
-
-                            <button class="text-button reply-button">
-                                <i data-lucide="reply" aria-hidden="true"></i>
-                                Reply
-                            </button>
-
-                            <button class="icon-button delete-button" title="Delete">
-                                <i data-lucide="trash-2" aria-hidden="true"></i>
-                            </button>
-
+                            <!-- Rendered via JS -->
                         </div>
-
                     </div>
-
-
-                    <div class="review-reply">
-
-                        <div class="reply-label">
-                            <i data-lucide="corner-down-right" aria-hidden="true"></i>
-                            Admin replied
-                        </div>
-
-                        <p>
-                            Thanks Angela! We'll consider adding a small delay
-                            for future Oslob tours. See you on the next trip!
-                        </p>
-
-                    </div>
-
-                </article>
-
-
-                <!-- REVIEW 4 -->
-
-                <article
-                    class="review-card"
-                    data-rating="5"
-                    data-replied="false"
-                    data-created="2026-09-27">
-
-                    <div class="review-card-head">
-
-                        <div class="customer-cell">
-
-                            <div class="customer-avatar">D</div>
-
-                            <div>
-
-                                <strong>Daniel Ortiz</strong>
-
-                                <small>daniel.ortiz@email.com</small>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="review-card-meta">
-
-                            <span class="review-rating">
-                                ★★★★★
-                            </span>
-
-                            <small>
-                                3 days ago
-                            </small>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="review-card-body">
-
-                        <div class="review-package">
-
-                            <i data-lucide="package" aria-hidden="true"></i>
-                            4D3N Cebu-Bohol · Sep 15, 2026
-
-                        </div>
-
-                        <p>
-                            "Best travel experience I've had in the Philippines.
-                            Every detail was handled professionally.
-                            Booking again next year!"
-                        </p>
-
-                    </div>
-
-
-                    <div class="review-card-footer">
-
-                        <div class="review-tags">
-
-                            <span class="review-tag positive">
-                                Professional
-                            </span>
-
-                            <span class="review-tag positive">
-                                Returning Customer
-                            </span>
-
-                        </div>
-
-
-                        <div class="review-actions">
-
-                            <button class="text-button reply-button">
-                                <i data-lucide="reply" aria-hidden="true"></i>
-                                Reply
-                            </button>
-
-                            <button class="icon-button delete-button" title="Delete">
-                                <i data-lucide="trash-2" aria-hidden="true"></i>
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-                <!-- REVIEW 5 -->
-
-                <article
-                    class="review-card"
-                    data-rating="3"
-                    data-replied="false"
-                    data-created="2026-09-26">
-
-                    <div class="review-card-head">
-
-                        <div class="customer-cell">
-
-                            <div class="customer-avatar">S</div>
-
-                            <div>
-
-                                <strong>Sophia Lim</strong>
-
-                                <small>sophia.lim@email.com</small>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="review-card-meta">
-
-                            <span class="review-rating">
-                                ★★★☆☆
-                            </span>
-
-                            <small>
-                                4 days ago
-                            </small>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="review-card-body">
-
-                        <div class="review-package">
-
-                            <i data-lucide="package" aria-hidden="true"></i>
-                            Cebu-Bohol · Sep 10, 2026
-
-                        </div>
-
-                        <p>
-                            "The tour itself was fine but the van was a bit
-                            cramped for our group of 10. Could be improved."
-                        </p>
-
-                    </div>
-
-
-                    <div class="review-card-footer">
-
-                        <div class="review-tags">
-
-                            <span class="review-tag negative">
-                                Cramped Van
-                            </span>
-
-                        </div>
-
-
-                        <div class="review-actions">
-
-                            <button class="text-button reply-button">
-                                <i data-lucide="reply" aria-hidden="true"></i>
-                                Reply
-                            </button>
-
-                            <button class="icon-button delete-button" title="Delete">
-                                <i data-lucide="trash-2" aria-hidden="true"></i>
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-                <!-- REVIEW 6 -->
-
-                <article
-                    class="review-card"
-                    data-rating="5"
-                    data-replied="true"
-                    data-created="2026-09-24">
-
-                    <div class="review-card-head">
-
-                        <div class="customer-cell">
-
-                            <div class="customer-avatar">G</div>
-
-                            <div>
-
-                                <strong>Grace Bautista</strong>
-
-                                <small>grace.b@email.com</small>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="review-card-meta">
-
-                            <span class="review-rating">
-                                ★★★★★
-                            </span>
-
-                            <small>
-                                6 days ago
-                            </small>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="review-card-body">
-
-                        <div class="review-package">
-
-                            <i data-lucide="package" aria-hidden="true"></i>
-                            3D2N Cebu Tour · Sep 05, 2026
-
-                        </div>
-
-                        <p>
-                            "Second time booking with Uncle Ron's.
-                            Consistent quality and very friendly team.
-                            Special shoutout to our guide Patrick!"
-                        </p>
-
-                    </div>
-
-
-                    <div class="review-card-footer">
-
-                        <div class="review-tags">
-
-                            <span class="review-tag positive">
-                                Consistent Quality
-                            </span>
-
-                            <span class="review-tag positive">
-                                Friendly Team
-                            </span>
-
-                        </div>
-
-
-                        <div class="review-actions">
-
-                            <button class="text-button reply-button">
-                                <i data-lucide="reply" aria-hidden="true"></i>
-                                Reply
-                            </button>
-
-                            <button class="icon-button delete-button" title="Delete">
-                                <i data-lucide="trash-2" aria-hidden="true"></i>
-                            </button>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="review-reply">
-
-                        <div class="reply-label">
-                            <i data-lucide="corner-down-right" aria-hidden="true"></i>
-                            Admin replied
-                        </div>
-
-                        <p>
-                            Thank you, Grace! Patrick sends his regards.
-                            See you on your next adventure!
-                        </p>
-
-                    </div>
-
                 </article>
 
             </section>
 
-
             <!-- EMPTY STATE -->
-
-            <div
-                class="empty-state"
-                id="emptyState"
-                hidden>
-
+            <div class="empty-state" id="emptyState" hidden>
                 <i data-lucide="message-square-x" aria-hidden="true"></i>
-
-                <h3>
-                    No reviews found
-                </h3>
-
-                <p>
-                    Try a different filter or search keyword.
-                </p>
-
+                <h3>No reviews found</h3>
+                <p>Try a different filter or search keyword.</p>
             </div>
 
         </section>
 
     </main>
 
-
-    <!-- =========================
-         JAVASCRIPT
-    ========================== -->
-
-    <div class="modal-backdrop" id="actionModalBackdrop" hidden aria-hidden="true">
-        <section class="modal modal-sm" role="dialog" aria-modal="true" aria-labelledby="actionModalTitle" aria-describedby="actionModalSubtitle">
-            <header class="modal-header">
-                <div>
-                    <h2 id="actionModalTitle">Action</h2>
-                    <p id="actionModalSubtitle"></p>
-                </div>
-                <button class="modal-close" id="actionModalClose" type="button" aria-label="Close dialog">
-                    <i data-lucide="x" aria-hidden="true"></i>
-                </button>
-            </header>
-            <div class="modal-body" id="actionModalBody"></div>
-            <footer class="modal-footer">
-                <button class="secondary-button" id="actionModalCancel" type="button">Cancel</button>
-                <button class="primary-button" id="actionModalConfirm" type="button">Continue</button>
-            </footer>
-        </section>
+    <!-- ARCHIVE / DELETE CONFIRMATION MODAL -->
+    <div class="modal-overlay" id="deleteModal" hidden>
+        <div class="modal-dialog">
+            <div class="modal-icon-container warning">
+                <i data-lucide="alert-triangle" aria-hidden="true"></i>
+            </div>
+            <h3>Archive Review?</h3>
+            <p>Are you sure you want to archive this review? This action cannot be undone.</p>
+            <div class="modal-buttons">
+                <button class="secondary-button" id="cancelDeleteBtn" type="button">Cancel</button>
+                <button class="danger-button" id="confirmDeleteBtn" type="button">Yes, Archive</button>
+            </div>
+        </div>
     </div>
+
     <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="false"></div>
 
     <script src="js/reviews.js"></script>
